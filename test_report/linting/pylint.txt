@@ -1,0 +1,6 @@
+************* Module test.test_resource
+test\test_resource.py:5:0: R0903: Too few public methods (0/1) (too-few-public-methods)
+
+------------------------------------------------------------------
+Your code has been rated at 9.98/10 (previous run: 9.98/10, +0.00)
+

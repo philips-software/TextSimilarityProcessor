@@ -1,0 +1,1 @@
+jscpd --min-tokens 20 --reporters "html" --mode "strict" --format "python" --output . .

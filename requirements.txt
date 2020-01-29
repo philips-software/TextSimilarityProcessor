@@ -1,0 +1,8 @@
+mutmut
+pytest
+xlrd
+xlsxwriter
+pandas
+codecov
+pytest-cov
+pylint

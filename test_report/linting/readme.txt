@@ -1,0 +1,1 @@
+pylint cosine_source test >"C:\Projects\PythonRepo\text-de-duplication\test_report\linting\pylint.txt"

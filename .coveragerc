@@ -1,0 +1,2 @@
+[run]
+omit =cosine_source/cosine_ui.py

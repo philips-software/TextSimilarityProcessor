@@ -1,0 +1,11 @@
+usage: cosine_cmd.py [-h] [--path --p] [--simindex --s] [--uniqid --u]
+                     [--colint --c]
+
+Text Similarity Index Processor
+
+optional arguments:
+  -h, --help      show this help message and exit
+  --path --p      the Input file path
+  --simindex --s  the Similarity index to be processed
+  --uniqid --u    uniq id index(column) of the input file
+  --colint --c    the col of interest
