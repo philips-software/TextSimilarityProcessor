@@ -1,9 +1,9 @@
 [![Build Status](https://travis-ci.com/bkk003/text_de_duplication_monitoring.svg?branch=master)](https://travis-ci.com/bkk003/text_de_duplication_monitoring)
 
-Text Similarity Index processor:
-
+Text Similarity Index processor
+====================
 What is the project intented to solve?
-
+--------
 Resolving the Technical Debt in "Test/Requirement/Issues/Any-text" repos with unique id using Natural Language Processing Continuous 
 de-duplicate monitoring system in place to check the duplication of any new text added to "Test/Requirement/Issues/Any-text" bank. 
 Grouping of similar "Test/Requirement/Issues/Any-text" helps in reduction of "Test/Requirement/Issues/Any-text" yet quality quotient remain same.  
@@ -11,24 +11,27 @@ Cycle time of test execution comes down as similar tests are identified for merg
 Repeated requirement can be reduced Issues list can be merged/reduced
 
 
-Technology stack: Python with few python packages mentioned in the INSTALL.md
+Technology stack 
+--------
+Python with few python packages mentioned in the INSTALL.md
 
-Key concepts (technical, philosophical, or both) important to the user’s understanding.
-
-Status:  This is a development release. There are known Issues/improvements & Limitations which will be taken up in the subsequent releases. Tool is open for the community to make changes for enhancement, bug fix etc.
-
-Screenshot: If the software has visual components, place a screenshot after the description.
+Status 
+-------- 
+This is a development release. There are known Issues/improvements & Limitations which will be taken up in the subsequent releases. Tool is open for the community to make changes for enhancement, bug fix etc.
 
 Dependencies
+--------
 Python 3.7.3 
 pip
 
 Installation
+====================
 Refer INSTALL.md
 
 Usage & Configuration
-How to use the tool:
 ====================
+How to use the tool:
+--------
 
 From any editor which support Python (pref: pycharm, set cosine_source and text-de-duplication_monitoring as root by
 right clicking and selecting option)
@@ -64,6 +67,7 @@ optional arguments:
 
 
 How to test the software
+====================
 1. To test the tool use : navigate to "text_de_duplication_monitoring" which is the root directory
 2. issue pytest -v to run all the tests
 
@@ -86,6 +90,7 @@ pylint cosine_source test >"path_to_save_file\pylint.txt"
 jscpd --min-tokens 20 --reporters "html" --mode "strict" --format "python" --output . .
 
 Limitations
+--------
 1. Input is accepted only via xlsx
 2. Stand alone application not web enabled
 3. Users have to fetch the input to csv/xlsx
@@ -93,6 +98,7 @@ Limitations
 
 
 Improvements/ Road-map
+--------
 1. Increase the test efficiency based on mutation testing output.
 2. Make the tool web enabled (using python flask...).
 3. Create hook to TFS, ALM etc so that this tool we can download the test/ requirement/ defects
@@ -101,7 +107,9 @@ and do further processing.
 
 
 Contact / Getting help
+====================
 NA
 
 License
+====================
 Refer LICENSE.md
