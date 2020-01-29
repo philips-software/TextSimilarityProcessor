@@ -1,45 +1,32 @@
 [![Build Status](https://travis-ci.com/bkk003/text_de_duplication_monitoring.svg?branch=master)](https://travis-ci.com/bkk003/text_de_duplication_monitoring)
 
-Text Similarity Index processor
-================================
-This is a development release. There are known Issues/improvements & Limitations which
-will be taken up in the subsequent releases.
-Tool is open for the community to make changes for enhancement, bug fix etc.
+Text Similarity Index processor:
 
-Tool requirement (for execution and development):
-================================================
-Requirements are added in requirement.txt file
+What is the project intented to solve?
 
-Python 3.7.3 - 64 bit
-
-python:
-install python for the respective OS at https://www.python.org/downloads/ Make sure to update the path variable to point to the python installation folder.
-
-pip:
-get get-pip.py from below link to your folder https://bootstrap.pypa.io/get-pip.py Open a command prompt and navigate to the folder containing get-pip.py. Run the following command:
-
-pandas - package
-xlsxwriter - package
-xlrd - package
-
-How to install packages: python -m pip install "package name"
-
-Installation for development purpose
-=====================================
-
-pylint:
-pip install -U pylint
-
-mutmut:
-pip install mutmut
-
-pytest:
-pip install pytest
-
-unittest:
-pip install unittest
+Resolving the Technical Debt in "Test/Requirement/Issues/Any-text" repos with unique id using Natural Language Processing Continuous 
+de-duplicate monitoring system in place to check the duplication of any new text added to "Test/Requirement/Issues/Any-text" bank. 
+Grouping of similar "Test/Requirement/Issues/Any-text" helps in reduction of "Test/Requirement/Issues/Any-text" yet quality quotient remain same.  
+Cycle time of test execution comes down as similar tests are identified for merging. 
+Repeated requirement can be reduced Issues list can be merged/reduced
 
 
+Technology stack: Python with few python packages mentioned in the INSTALL.md
+
+Key concepts (technical, philosophical, or both) important to the user’s understanding.
+
+Status:  This is a development release. There are known Issues/improvements & Limitations which will be taken up in the subsequent releases. Tool is open for the community to make changes for enhancement, bug fix etc.
+
+Screenshot: If the software has visual components, place a screenshot after the description.
+
+Dependencies
+Python 3.7.3 
+pip
+
+Installation
+Refer INSTALL.md
+
+Usage & Configuration
 How to use the tool:
 ====================
 
@@ -73,11 +60,10 @@ optional arguments:
   --simindex --s  the Similarity index to be processed
   --uniqid --u    uniq id index(column) of the input file
   --colint --c    the col of interest
+ 
 
 
-How to test the tool:
-====================
-
+How to test the software
 1. To test the tool use : navigate to "text_de_duplication_monitoring" which is the root directory
 2. issue pytest -v to run all the tests
 
@@ -99,51 +85,23 @@ pylint cosine_source test >"path_to_save_file\pylint.txt"
 - jscpd execution on root folder
 jscpd --min-tokens 20 --reporters "html" --mode "strict" --format "python" --output . .
 
-
-what code quality quality checklist to be followed for the Contributors" :
-=======================================================================
-
-1. Review:
-Peer code review at desk/formal is carried out
-
-2. Tests:
-Any new test case added, make sure it is having impact and passing state
-
-3. Coverage:
-Greater than 95% coverage excluding UI 
-
-4. Linting:
-All the files without linting errors
- 
-5. Copy paste/Jscpd:
-JSCPD execution result with 20 token size , allowed duplication is 5%
-
-6. Documenting:
-Test and code “pydoc” is generated for the public function and is available in reports folder
- 
-7. Mutation Testing
-should carry out mutation testing if any new tests are added.
-
-8. Evidence:
-Evidence to the above points are captured at “test_report” of the check-in
-
-
-Limitations:
-============
+Limitations
 1. Input is accepted only via xlsx
 2. Stand alone application not web enabled
 3. Users have to fetch the input to csv/xlsx
 4. Tool is not yet plugged to TFS, ALM etc
 
 
-Test Report:
-============
-Refer to the folder "test_report"
-
-Improvements/ Road-map:
-=======================
+Improvements/ Road-map
 1. Increase the test efficiency based on mutation testing output.
 2. Make the tool web enabled (using python flask...).
 3. Create hook to TFS, ALM etc so that this tool we can download the test/ requirement/ defects
 and do further processing.
 4. Enable the tool to do similarity check on code base.
+
+
+Contact / Getting help
+NA
+
+License
+Refer LICENSE.md
