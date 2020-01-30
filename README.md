@@ -13,7 +13,7 @@ Repeated requirement can be reduced Issues list can be merged/reduced
 
 Technology stack 
 --------
-Python with few python packages mentioned in the INSTALL.md
+Python with few python packages mentioned in the [INSTALL.md](INSTALL.md) 
 
 Status 
 -------- 
@@ -26,7 +26,7 @@ pip
 
 Installation
 ====================
-Refer INSTALL.md
+[INSTALL.md](INSTALL.md) 
 
 Usage & Configuration
 ====================
@@ -108,8 +108,8 @@ and do further processing.
 
 Contact / Getting help
 ====================
-NA
+[MAINTAINERS.md](MAINTAINERS.md) 
 
 License
 ====================
-Refer LICENSE.md
+[License.md](LICENSE.md) 
