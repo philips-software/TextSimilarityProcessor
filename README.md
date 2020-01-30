@@ -24,8 +24,19 @@ This is a development release. There are known Issues/improvements & Limitations
 
 Dependencies
 --------
-Python 3.7.3 
-pip
+Python 3.7.3 (64bit)
+ 
+[packages]
+
+pip,
+mutmut,
+pytest,
+xlrd,
+xlsxwriter,
+pandas,
+codecov,
+pytest-cov,
+pylint
 
 Installation
 ====================
