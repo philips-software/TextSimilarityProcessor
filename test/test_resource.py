@@ -41,5 +41,5 @@ class TestResource:
         os.path.join(tst_resource_folder, "golden_new_Testcases_%s_recomendation"
                      % str(similarity_index) + ".xlsx"))
 
-    log_file_path = os.path.abspath(os.path.join(par_dir, "cosine_source", "text_similarity.log"))
+    log_file_path = os.path.abspath(os.path.join(par_dir, "similarity_processor", "text_similarity.log"))
     empty_file_path = os.path.abspath(os.path.join(par_dir, "test_resource", "empty_testcase.xlsx"))

@@ -4,8 +4,8 @@ from tkinter import Tk
 from tkinter import IntVar, END
 from tkinter import Label, Entry, Button, Checkbutton
 from tkinter import filedialog
-from cosine_source.cosine_io import CosineIO
-import cosine_logging as cl
+from similarity_processor.similarity_io import SimilarityIO
+import similarity_processor.similarity_logging as cl
 
 ROW_SPACER = 25
 LOG = cl.get_logger()
@@ -75,10 +75,10 @@ class TextSimilarityWindow:
     def process(self):
         """ Function which is the entry for all the processing activity."""
         try:
-            cosine_io_obj = CosineIO(self.path_t.get(), self.sin_index_t.get(),
-                                     self.uniq_id_t.get(), self.steps_t.get(),
-                                     self.is_new_text.get(), self.__get_new_text())
-            cosine_io_obj.orchestrate_cosine()
+            similarity_io_obj = SimilarityIO(self.path_t.get(), self.sin_index_t.get(),
+                                         self.uniq_id_t.get(), self.steps_t.get(),
+                                         self.is_new_text.get(), self.__get_new_text())
+            similarity_io_obj.orchestrate_similarity()
         except TypeError as error:
             print('Error:', str(error))
             LOG.error("Error:%s", str(error))

@@ -7,8 +7,8 @@ import time
 import subprocess
 from test.test_resource import TestResource
 import pandas as pd
-from cosine_source.cosine_io import CosineIO
-from cosine_source.cosine_ui import TextSimilarityWindow
+from similarity_processor.similarity_io import SimilarityIO
+from similarity_processor.similarity_ui import TextSimilarityWindow
 
 
 def verify_file_path():
@@ -23,7 +23,7 @@ def verify_file_path():
 
 class MyFunctionalTestCase(unittest.TestCase):
     """ This test class verifies the Text similarity index processing to cover
-    cosine_io.py and cosine_core.py file with a test resources
+    similarity_io.py and similarity_core.py file with a test resources
     which simulates the user input file with defined formats required / allowed by the tool """
 
     @classmethod
@@ -40,10 +40,10 @@ class MyFunctionalTestCase(unittest.TestCase):
         """ Test function which injects the user input data skipping thetest_from_command_line
         presentation later to the IO layer to check the underlying functionality """
 
-        cosine = CosineIO(TestResource.file_path, TestResource.similarity_index,
-                          TestResource.testcase_id, TestResource.teststeps_id, TestResource.var,
-                          TestResource.get_new_text)
-        cosine.orchestrate_cosine()
+        cosine = SimilarityIO(TestResource.file_path, TestResource.similarity_index,
+                              TestResource.testcase_id, TestResource.teststeps_id, TestResource.var,
+                              TestResource.get_new_text)
+        cosine.orchestrate_similarity()
         time.sleep(10)
         self.verify_functional_test()
 
@@ -68,7 +68,7 @@ class MyFunctionalTestCase(unittest.TestCase):
     def test_from_command_line(self):
         """Test function which provides input using command line interface"""
         script = os.path.abspath(os.path.join(TestResource.par_dir,
-                                              "cosine_source", "cosine_cmd.py"))
+                                              "similarity_processor", "similarity_cmd.py"))
         cmd = 'python3.7 %s --p "%s" --s "%s" --u "%s" --c "%s"' % (
             script, TestResource.file_path, TestResource.command_similarity,
             TestResource.command_unique_id, TestResource.command_colint)
@@ -80,9 +80,9 @@ class MyFunctionalTestCase(unittest.TestCase):
         """Function test the empty file/ incorrect data/ extra sheet in the input file"""
         text_check = 'Input data is incorrect/ file is invalid/It has more than one sheet'
         flag = False
-        cos_io_obj = CosineIO(TestResource.empty_file_path, TestResource.command_similarity,
-                              TestResource.command_unique_id, TestResource.command_colint, 0)
-        cos_io_obj.orchestrate_cosine()
+        cos_io_obj = SimilarityIO(TestResource.empty_file_path, TestResource.command_similarity,
+                                  TestResource.command_unique_id, TestResource.command_colint, 0)
+        cos_io_obj.orchestrate_similarity()
         line = subprocess.check_output(['tail', '-1', TestResource.log_file_path])
         line = line.decode('UTF-8')
         if text_check in line:

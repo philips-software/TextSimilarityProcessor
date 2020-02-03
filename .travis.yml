@@ -11,7 +11,7 @@ jobs:
     - stage: "Static Analysis"
       name: "static analysis 'pylint & JSCPD'"
       script:
-        - pylint cosine_source/ test/
+        - pylint similarity_processor/ test/
         - jscpd --min-tokens 20 --reporters "json" --mode "strict" --format "python" -o . .
         - python3 test_resource/jscpd_parser.py --j 5 #Allowed duplication is 5% with 20 token size
 
@@ -19,15 +19,15 @@ jobs:
       name: "Unit and functional test with coverage"
       script:
         - python3 -m pytest -v
-        - pytest --cov-config=.coveragerc --cov=cosine_source
+        - pytest --cov-config=.coveragerc --cov=similarity_processor
         - coverage report --fail-under=95 #Coverage should be above 95%
       after_success: codecov
 
     - stage: "Mutation Tests"
       name: "mutation testing using mutmut (selective - 25% allowed to fail) as it exceeds 50 min of Travis"
-      # Other than Travis suggested to run complete by giving --paths-to-mutate "cosine_source" run
+      # Other than Travis suggested to run complete by giving --paths-to-mutate "similarity_processor" run
       script:
-        - mutmut --paths-to-mutate "cosine_source/cosine_io.py","cosine_source/cosine_core.py" run || true
+        - mutmut --paths-to-mutate "similarity_processor/similarity_io.py","similarity_processor/similarity_core.py" run || true
         - mutmut junitxml --suspicious-policy=ignore --untested-policy=ignore > mutmut.xml
         - python3 test_resource/mutmut_parse.py --m 25 #Mutation (failure+disables+error) allowed 25% of total mutants
 

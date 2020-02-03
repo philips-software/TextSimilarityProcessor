@@ -7,8 +7,8 @@ import filecmp
 import subprocess
 from datetime import datetime
 from test.test_resource import TestResource
-from cosine_source.cosine_cmd import create_parser
-import cosine_logging as cl
+from similarity_processor.similarity_cmd import create_parser
+import similarity_logging as cl
 LOG = cl.get_logger()
 
 
@@ -54,7 +54,7 @@ class ParserAndLogTest(unittest.TestCase):
     def test_from_command_help(self):
         """Test function to test the commandline help option"""
         script = os.path.abspath(os.path.join(TestResource.par_dir,
-                                              "cosine_source", "cosine_cmd.py"))
+                                              "similarity_processor", "similarity_cmd.py"))
         cmd = 'python3.7 %s --h'%script
         output = open(os.path.join(TestResource.tst_resource_folder, "cmd_help.txt"), "r")
         tmpfile = open(os.path.join(TestResource.tst_resource_folder, "tmp_help.txt"), "w")

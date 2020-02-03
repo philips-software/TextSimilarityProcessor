@@ -6,13 +6,13 @@ import unittest
 import subprocess
 from test.test_resource import TestResource
 import numpy as np
-from cosine_source.cosine_io import CosineIO
-from cosine_source.cosine_io import is_nan
+from similarity_processor.similarity_io import SimilarityIO
+from similarity_processor.similarity_io import is_nan
 
 
 class IoTestCase(unittest.TestCase):
     """ This test class verifies the Text similarity index processing to cover
-    cosine_io.py and cosine_core.py and cosine_cmd.py """
+    similarity_io.py and similarity_core.py and similarity_cmd.py """
 
     def test_isnan(self):
         """ Function to test isnan """
@@ -24,8 +24,8 @@ class IoTestCase(unittest.TestCase):
         """Function test the incorrect path input file"""
         text_check = msg
         flag = False
-        cos_io_obj = CosineIO(path, similarity, uniqid, colint, 0)
-        cos_io_obj.orchestrate_cosine()
+        cos_io_obj = SimilarityIO(path, similarity, uniqid, colint, 0)
+        cos_io_obj.orchestrate_similarity()
         line = subprocess.check_output(['tail', log_loc, TestResource.log_file_path])
         line = line.decode('UTF-8')
         if text_check in line:

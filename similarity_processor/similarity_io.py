@@ -2,10 +2,10 @@
 import math
 import os
 import pandas as pd
-from cosine_source.cosine_core import get_cosine
-from cosine_source.cosine_core import text_to_vector
-from cosine_source.cosine_core import check_tolerance
-import cosine_source.cosine_logging as cl
+from similarity_processor.similarity_core import get_cosine
+from similarity_processor.similarity_core import text_to_vector
+from similarity_processor.similarity_core import check_tolerance
+import similarity_processor.similarity_logging as cl
 LOG = cl.get_logger()
 
 
@@ -17,15 +17,15 @@ def is_nan(value):
         return False
 
 
-class CosineIO:
+class SimilarityIO:
     """ This class is used for IO Processing the text similarity index processing tool.
     User input file is fetched here, also intermediate file as well as
     the final recommendation creating are tasks for this class """
 
     def __init__(self, file_path, sim_match, uniq_id, col_int, is_new_text, new_text=None):
-        """constructor for cosineIO, which initializes the the input variables needed IO
+        """constructor for SimilarityIO, which initializes the the input variables needed IO
         processing """
-        LOG.info("\nCosine_UI \nValues passed:\n")
+        LOG.info("\nSimilarity_UI \nValues passed:\n")
         self.file_path = file_path
         LOG.info("Path:%s", str(self.file_path))
         self.sim_match = sim_match
@@ -175,7 +175,7 @@ class CosineIO:
             LOG.error("\nInput data is not an integer")
             return False
 
-    def orchestrate_cosine(self):
+    def orchestrate_similarity(self):
         """Function which orchestrate the entire sequence of cosine similarity matching
         from IO layer"""
 

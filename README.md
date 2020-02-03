@@ -47,14 +47,14 @@ Usage & Configuration
 How to use the tool:
 --------
 
-From any editor which support Python (pref: pycharm, set cosine_source and text-de-duplication_monitoring as root by
+From any editor which support Python (pref: pycharm, set similarity_processor and text-de-duplication_monitoring as root by
 right clicking and selecting option)
 
 Make sure to set the right python interpreter and make sure it lists all the packages mentioned as mandate.
 
 Option 1: UI
 --------
-Execute the cosine_ui.py, which will open the UI window where you need to enter the options like,
+Execute the similarity_ui.py, which will open the UI window where you need to enter the options like,
 
 1. Path to the test/requirement/other other document to be analyzed.
 2. Similarity to be processed (find out 100% match, 99% etc...)
@@ -65,8 +65,8 @@ the new text box.
 
 Option 2: commandline
 --------
-C:\Projects\PythonRepo\text-de-duplication>python cosine_source\cosine_cmd.py --h
-usage: cosine_cmd.py [-h] [--path --p] [--simindex --s] [--uniqid --u]
+C:\Projects\PythonRepo\text-de-duplication>python similarity_processor\similarity_cmd.py --h
+usage: similarity_cmd.py [-h] [--path --p] [--simindex --s] [--uniqid --u]
                      [--colint --c]
 
 Text Similarity Index Processor
@@ -89,16 +89,16 @@ How to test the software
 issue command pytest --html=report.html
 
 - To run test for coverage:
-pytest --cov-report html --cov="cosine_source"
+pytest --cov-report html --cov="similarity_processor"
 
 - pydoc creation 
 python -m pydoc -w module_name
 
 - mutation testing using mutmut
-mutmut --paths-to-mutate "path_to \ cosine_source" run
+mutmut --paths-to-mutate "path_to \ similarity_processor" run
 
 - pylint execution on code
-pylint cosine_source test >"path_to_save_file\pylint.txt"
+pylint similarity_processor test >"path_to_save_file\pylint.txt"
 
 - jscpd execution on root folder
 jscpd --min-tokens 20 --reporters "html" --mode "strict" --format "python" --output . .

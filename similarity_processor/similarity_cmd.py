@@ -5,7 +5,7 @@ import argparse
 sys.path.append(os.path.abspath(os.path.join
                                 (os.path.dirname(__file__), os.pardir
                                  )))
-from cosine_source.cosine_io import CosineIO
+from similarity_processor.similarity_io import SimilarityIO
 
 
 def create_parser(args):
@@ -41,6 +41,6 @@ def create_parser(args):
 if __name__ == '__main__':
     # Execute the parse_args() method
     ARGS = create_parser(sys.argv[1:])
-    # Process the cosine with inputs provided
-    COS_IO_OBJ = CosineIO(ARGS.path, ARGS.simindex, ARGS.uniqid, ARGS.colint, 0)
-    COS_IO_OBJ.orchestrate_cosine()
+    # Process the similarity with inputs provided
+    SIM_IO_OBJ = SimilarityIO(ARGS.path, ARGS.simindex, ARGS.uniqid, ARGS.colint, 0)
+    SIM_IO_OBJ.orchestrate_similarity()

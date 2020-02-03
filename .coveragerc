@@ -1,2 +1,2 @@
 [run]
-omit =cosine_source/cosine_ui.py
+omit =similarity_processor/similarity_ui.py

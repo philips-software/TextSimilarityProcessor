@@ -2,7 +2,7 @@
 import re
 import math
 from collections import Counter
-import cosine_source.cosine_logging as cl
+import similarity_processor.similarity_logging as cl
 WORD = re.compile(r'\w+')
 LOG = cl.get_logger()
 

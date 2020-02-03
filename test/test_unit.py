@@ -2,7 +2,7 @@
 core cosine algorithm """
 import unittest
 from collections import Counter
-import cosine_source.cosine_core as cc
+import similarity_processor.similarity_core as cc
 
 
 class MyUnitTestCase(unittest.TestCase):

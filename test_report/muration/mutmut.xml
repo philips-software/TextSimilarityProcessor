@@ -917,7 +917,7 @@
 +            LOG.error(&quot;XX\nInput data is not an integerXX&quot;)
              return False
  
-     def orchestrate_cosine(self):
+     def orchestrate_similarity(self):
 </failure>
 			<system-out>            LOG.error(&quot;\nInput data is not an integer&quot;)</system-out>
 		</testcase>
@@ -1634,7 +1634,7 @@
 +++ C:\Projects\PythonRepo\text-de-duplication\cosine_source\cosine_ui.py
 @@ -80,7 +80,7 @@
                                       self.is_new_text.get(), self.__get_new_text())
-             cosine_io_obj.orchestrate_cosine()
+             cosine_io_obj.orchestrate_similarity()
          except TypeError as error:
 -            print('Error:', str(error))
 +            print('XXError:XX', str(error))
@@ -1648,7 +1648,7 @@
 			<failure message="bad_survived" type="failure">--- C:\Projects\PythonRepo\text-de-duplication\cosine_source\cosine_ui.py
 +++ C:\Projects\PythonRepo\text-de-duplication\cosine_source\cosine_ui.py
 @@ -81,7 +81,7 @@
-             cosine_io_obj.orchestrate_cosine()
+             cosine_io_obj.orchestrate_similarity()
          except TypeError as error:
              print('Error:', str(error))
 -            LOG.error(&quot;Error:%s&quot;, str(error))

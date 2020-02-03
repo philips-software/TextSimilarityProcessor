@@ -1,4 +1,4 @@
-usage: cosine_cmd.py [-h] [--path --p] [--simindex --s] [--uniqid --u]
+usage: similarity_cmd.py [-h] [--path --p] [--simindex --s] [--uniqid --u]
                      [--colint --c]
 
 Text Similarity Index Processor
