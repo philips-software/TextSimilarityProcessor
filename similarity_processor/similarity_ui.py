@@ -76,8 +76,8 @@ class TextSimilarityWindow:
         """ Function which is the entry for all the processing activity."""
         try:
             similarity_io_obj = SimilarityIO(self.path_t.get(), self.sin_index_t.get(),
-                                         self.uniq_id_t.get(), self.steps_t.get(),
-                                         self.is_new_text.get(), self.__get_new_text())
+                                             self.uniq_id_t.get(), self.steps_t.get(),
+                                             self.is_new_text.get(), self.__get_new_text())
             similarity_io_obj.orchestrate_similarity()
         except TypeError as error:
             print('Error:', str(error))
