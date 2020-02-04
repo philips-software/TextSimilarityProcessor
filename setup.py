@@ -7,7 +7,7 @@ with open('requirements.txt') as f:
     required = f.read().splitlines()
 
 setuptools.setup(
-    name="similarity_processor-info",
+    name="similarity_processor",
     version="0.0.1",
     author="Brijesh",
     author_email="brijesh.krishnank@philips.com",
