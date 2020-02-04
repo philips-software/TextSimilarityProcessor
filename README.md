@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.com/bkk003/text_de_duplication_monitoring.svg?branch=master)](https://travis-ci.com/bkk003/text_de_duplication_monitoring)
+[![Build Status](https://travis-ci.com/bkk003/TextSimilarityProcessor.svg?branch=master)](https://travis-ci.com/bkk003/TextSimilarityProcessor)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![codecov](https://codecov.io/gh/bkk003/text_de_duplication_monitoring/branch/master/graph/badge.svg)](https://codecov.io/gh/bkk003/text_de_duplication_monitoring)
+[![codecov](https://codecov.io/gh/bkk003/TextSimilarityProcessor/branch/master/graph/badge.svg)](https://codecov.io/gh/bkk003/TextSimilarityProcessor)
 
 
 Text Similarity Index processor
