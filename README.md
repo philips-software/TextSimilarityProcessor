@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.com/philips-software/TextSimilarityProcessor.svg?branch=master)](https://travis-ci.com/philips-software/TextSimilarityProcessor)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![codecov](https://codecov.io/gh/bkk003/TextSimilarityProcessor/branch/master/graph/badge.svg)](https://codecov.io/gh/bkk003/TextSimilarityProcessor)
+[![codecov](https://codecov.io/gh/philips-software/TextSimilarityProcessor/branch/master/graph/badge.svg)](https://codecov.io/gh/philips-software/TextSimilarityProcessor)
 
 
 Text Similarity Index processor
