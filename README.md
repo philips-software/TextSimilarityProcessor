@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.com/bkk003/TextSimilarityProcessor.svg?branch=master)](https://travis-ci.com/bkk003/TextSimilarityProcessor)
+[![Build Status](https://travis-ci.com/philips-software/TextSimilarityProcessor.svg?branch=master)](https://travis-ci.com/philips-software/TextSimilarityProcessor)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![codecov](https://codecov.io/gh/bkk003/TextSimilarityProcessor/branch/master/graph/badge.svg)](https://codecov.io/gh/bkk003/TextSimilarityProcessor)
+[![codecov](https://codecov.io/gh/philips-software/TextSimilarityProcessor/branch/master/graph/badge.svg)](https://codecov.io/gh/philips-software/TextSimilarityProcessor)
 
 
 Text Similarity Index processor
@@ -54,7 +54,7 @@ Make sure to set the right python interpreter and make sure it lists all the pac
 
 Option 1: UI
 --------
-Execute the similarity_ui.py, which will open the UI window where you need to enter the options like,
+Execute the `similarity_ui.py`, which will open the UI window where you need to enter the options like,
 
 1. Path to the test/requirement/other other document to be analyzed.
 2. Similarity to be processed (find out 100% match, 99% etc...)
@@ -65,7 +65,8 @@ the new text box.
 
 Option 2: commandline
 --------
-C:\Projects\PythonRepo\text-de-duplication>python similarity_processor\similarity_cmd.py --h
+```
+$ python similarity_processor\similarity_cmd.py --h
 usage: similarity_cmd.py [-h] [--path --p] [--simindex --s] [--uniqid --u]
                      [--colint --c]
 
@@ -77,31 +78,31 @@ optional arguments:
   --simindex --s  the Similarity index to be processed
   --uniqid --u    uniq id index(column) of the input file
   --colint --c    the col of interest
- 
+``` 
 
 
 How to test the software
 ====================
 1. To test the tool use : navigate to "text_de_duplication_monitoring" which is the root directory
-2. issue pytest -v to run all the tests
+2. issue `pytest -v` to run all the tests
 
 - To report the pytest in html:
-issue command pytest --html=report.html
+issue command `pytest --html=report.html`
 
 - To run test for coverage:
-pytest --cov-report html --cov="similarity_processor"
+`pytest --cov-report html --cov="similarity_processor"`
 
 - pydoc creation 
-python -m pydoc -w module_name
+`python -m pydoc -w module_name`
 
 - mutation testing using mutmut
-mutmut --paths-to-mutate "path_to \ similarity_processor" run
+`mutmut --paths-to-mutate "path_to \ similarity_processor" run`
 
 - pylint execution on code
-pylint similarity_processor test >"path_to_save_file\pylint.txt"
+`pylint similarity_processor test >"path_to_save_file\pylint.txt"`
 
 - jscpd execution on root folder
-jscpd --min-tokens 20 --reporters "html" --mode "strict" --format "python" --output . .
+`jscpd --min-tokens 20 --reporters "html" --mode "strict" --format "python" --output . .`
 
 Limitations
 --------
