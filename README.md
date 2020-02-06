@@ -8,7 +8,7 @@ Text Similarity Index processor
 What is the project intented to solve?
 --------
 Resolving the Technical Debt in "Test/Requirement/Issues/Any-text" repos with unique id using Natural Language Processing Continuous 
-de-duplicate monitoring system in place to check the duplication of any new text added to "Test/Requirement/Issues/Any-text" bank. 
+duplicate monitoring system in place to check the duplication of any new text added to "Test/Requirement/Issues/Any-text" bank. 
 Grouping of similar "Test/Requirement/Issues/Any-text" helps in reduction of "Test/Requirement/Issues/Any-text" yet quality quotient remain same.  
 Cycle time of test execution comes down as similar tests are identified for merging. 
 Repeated requirement can be reduced Issues list can be merged/reduced
@@ -44,7 +44,7 @@ Installation
 
 Usage & Configuration
 ====================
-How to use the tool:
+1. How to use the tool from the source code:
 --------
 
 From any editor which support Python (pref: pycharm, set similarity_processor and text-de-duplication_monitoring as root by
@@ -80,6 +80,61 @@ optional arguments:
   --colint --c    the col of interest
 ``` 
 
+
+2. How to use the tool after "pip install similarity-processor"
+-----------------------------------------------------------
+
+Option 1: To use only the similarity 
+------------------------------------
+```
+>>> from similarity_processor import similarity_core
+
+>>> x = similarity_core.text_to_vector("this is a sample test")
+>>> y = similarity_core.text_to_vector("this is a sample")
+>>> w = similarity_core.get_cosine(x,y)
+>>> print(w)
+0.8944271909999159
+```
+Option 2: Generate similarity for a group of text
+like "Test cases, requirement etc... which is present in xlsx
+-------------------------------------------------------------
+```
+>>> from similarity_processor.similarity_io import SimilarityIO
+
+>>> similarity_io_obj = SimilarityIO("TestBank.xlsx", "99", 0, "1,2,3", 0, None)
+>>> similarity_io_obj.orchestrate_similarity()
+```
+Arguments:Path to the input file, Similarity index of interest, Unique id value column id in xlsx, Interested columns in xlsx, Are you checking a new text against a existing text bank ?, If yes: new text
+
+Output will be available in same folder as input file
+
+files are,
+1. If any duplicate ids in the unique id
+2. A recomendation for the similarity value input
+3. a metged file with datas in the "interested columns in xlsx"
+
+Option 3: Generate similarity for a group of text
+like "Test cases, requirement etc... which is present in xlsx
+through commandline
+-------------------------------------------------------------
+```
+>python -m similarity_processor.similarity_cmd --h
+>python -m similarity_processor.similarity_cmd --p "TestBank.xlsx" --s "99" --u 0 --c "1,2,3"
+```
+
+Option 4: Generate similarity for a group of text
+like "Test cases, requirement etc... which is present in xlsx
+through UI
+-------------------------------------------------------------
+```
+>python -m similarity_processor.similarity_ui
+```
+1. Path to the test/requirement/other other document to be analyzed.
+2. Similarity to be processed (find out 100% match, 99% etc...)
+3. Unique ID in the csv/xlsx column ID(0/1 etc...)
+4. Steps/Description id for content matching (column of interest IDs in the csv/xlsx seperated by , like 1,2,3)
+5. If new requirement / test to me checked with existing, enable the check box and paste the content to be checked in
+the new text box.
 
 How to test the software
 ====================
