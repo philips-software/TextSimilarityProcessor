@@ -27,14 +27,6 @@ class ParserAndLogTest(unittest.TestCase):
         parsed = check_create_parser("--p", "path_test")
         self.assertEqual(parsed.path, "path_test")
 
-    def test_simindex(self):
-        """ Function to test the similarity index variable in the command line
-                correct and incorrect """
-        with self.assertRaises(SystemExit):
-            check_create_parser("-s", "simindex_test")
-        parsed = check_create_parser("--s", "simindex_test")
-        self.assertEqual(parsed.simindex, "simindex_test")
-
     def test_uniqid(self):
         """ Function to test the unique id  variable in the command line
                 correct and incorrect """

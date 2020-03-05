@@ -2,7 +2,7 @@
 
 Requirements are added in requirement.txt file
 
-Python 3.7.3 - 64 bit
+Python 3.7.3 
 
 python:
 install python for the respective OS at https://www.python.org/downloads/ Make sure to update the path variable to point to the python installation folder.

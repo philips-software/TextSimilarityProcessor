@@ -28,15 +28,3 @@ def text_to_vector(text):
     text: Input text """
     words = WORD.findall(text)
     return Counter(words)
-
-
-def check_tolerance(actual_val, exp_val):
-    """ Function used for checking the tolerance value (defaulted to 100)
-    actual_val: what is the actual value after processing the cosine
-    exp_val: what is the expected value for the cosine """
-    if actual_val >= exp_val:
-        tolerance_value = abs(actual_val - exp_val) <= 1
-    else:
-        tolerance_value = 0
-    LOG.info("check_tolerance() value:%d", tolerance_value)
-    return tolerance_value

@@ -20,11 +20,6 @@ def create_parser(args):
                             type=str,
                             help='the Input file path')
 
-    cos_parser.add_argument('--simindex',
-                            metavar='--s',
-                            type=str,
-                            help='the Similarity index to be processed')
-
     cos_parser.add_argument('--uniqid',
                             metavar='--u',
                             type=str,
@@ -42,5 +37,5 @@ if __name__ == '__main__':
     # Execute the parse_args() method
     ARGS = create_parser(sys.argv[1:])
     # Process the similarity with inputs provided
-    SIM_IO_OBJ = SimilarityIO(ARGS.path, ARGS.simindex, ARGS.uniqid, ARGS.colint, 0)
+    SIM_IO_OBJ = SimilarityIO(ARGS.path, ARGS.uniqid, ARGS.colint, None)
     SIM_IO_OBJ.orchestrate_similarity()

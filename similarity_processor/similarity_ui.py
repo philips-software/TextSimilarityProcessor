@@ -37,9 +37,8 @@ class TextSimilarityWindow:
             return _id, _text_in
 
         self.path, self.path_t = __place_ui_item("Input File Path", 1, 30)
-        self.sin_index, self.sin_index_t = __place_ui_item("Similarity Match", 2)
-        self.uniq_id, self.uniq_id_t = __place_ui_item("Unique ID Column", 3)
-        self.steps_id, self.steps_t = __place_ui_item("Columns Of Interest", 4)
+        self.uniq_id, self.uniq_id_t = __place_ui_item("Unique ID Column", 2)
+        self.steps_id, self.steps_t = __place_ui_item("Columns Of Interest", 3)
 
         def __new_text_compare():
             """ Function used to create the place holder for the User input used
@@ -75,7 +74,7 @@ class TextSimilarityWindow:
     def process(self):
         """ Function which is the entry for all the processing activity."""
         try:
-            similarity_io_obj = SimilarityIO(self.path_t.get(), self.sin_index_t.get(),
+            similarity_io_obj = SimilarityIO(self.path_t.get(),
                                              self.uniq_id_t.get(), self.steps_t.get(),
                                              self.is_new_text.get(), self.__get_new_text())
             similarity_io_obj.orchestrate_similarity()

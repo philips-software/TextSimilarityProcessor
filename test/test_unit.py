@@ -59,36 +59,6 @@ class MyUnitTestCase(unittest.TestCase):
         self.assertEqual(Counter, type(positive_text),
                          "Counter vector should be generated from text")
 
-    def test_check_positive_tolerance(self):
-        """This method validates the positive tolerance level(default value: 100) with different values
-        actual_val: what is the actual value after processing the cosine
-        exp_val: what is the expected value for the cosine"""
-
-        positive_tolerance = cc.check_tolerance(97, 90)
-        self.assertLessEqual(positive_tolerance, 1, "Tolerance should be equal to 1")
-
-        positive_tolerance = cc.check_tolerance(90, 90)
-        self.assertEqual(positive_tolerance, 1, "Tolerance should be equal to 1")
-
-        positive_tolerance = cc.check_tolerance(90.00001, 90)
-        self.assertEqual(positive_tolerance, 1, "Tolerance should be equal to 1")
-
-    def test_check_negative_tolerance(self):
-        """This method validates the negative tolerance level(default value: 100) with different values
-        actual_val: what is the actual value after processing the cosine
-        exp_val: what is the expected value for the cosine"""
-
-        negative_tolerance = cc.check_tolerance(98, 99)
-        self.assertEqual(0, negative_tolerance, "Tolerance should be equal to 0")
-
-    def test_check_zero_tolerance(self):
-        """This method validates the zero tolerance level(default value: 100) with different values
-        actual_val: what is the actual value after processing the cosine
-        exp_val: what is the expected value for the cosine"""
-
-        zero_tolerance = cc.check_tolerance(99, 90)
-        self.assertEqual(zero_tolerance, 0, "Tolerance should be equal to 0")
-
 
 if __name__ == '__main__':
     unittest.main()

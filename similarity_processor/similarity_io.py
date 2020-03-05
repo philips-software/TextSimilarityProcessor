@@ -4,7 +4,6 @@ import os
 import pandas as pd
 from similarity_processor.similarity_core import get_cosine
 from similarity_processor.similarity_core import text_to_vector
-from similarity_processor.similarity_core import check_tolerance
 import similarity_processor.similarity_logging as cl
 LOG = cl.get_logger()
 
@@ -22,14 +21,12 @@ class SimilarityIO:
     User input file is fetched here, also intermediate file as well as
     the final recommendation creating are tasks for this class """
 
-    def __init__(self, file_path, sim_match, uniq_id, col_int, is_new_text, new_text=None):
+    def __init__(self, file_path, uniq_id, col_int, is_new_text, new_text=None):
         """constructor for SimilarityIO, which initializes the the input variables needed IO
         processing """
         LOG.info("\nSimilarity_UI \nValues passed:\n")
         self.file_path = file_path
         LOG.info("Path:%s", str(self.file_path))
-        self.sim_match = sim_match
-        LOG.info("\nSimilarity Index:%s", str(self.sim_match))
         self.uniq_id = uniq_id
         LOG.info("\nUnique ID Column:%s", str(self.uniq_id))
         self.col_int = col_int
@@ -145,22 +142,17 @@ class SimilarityIO:
                 vector2 = text_to_vector(str(match_text))
                 # Generate the cosine similarity match value
                 cosine = get_cosine(vector1, vector2)
-                if check_tolerance(cosine * 100, int(self.sim_match)):
-                    print(cosine * 100)
-                    __reco.append({self.uniq_header: str(__uniq_id), 'Potential Match':
-                                   str(match_id), 'Similarity Index': str(cosine * 100)})
+                __reco.append({self.uniq_header: str(__uniq_id), 'Potential Match':
+                               str(match_id), 'Similarity Index': cosine * 100})
             if self.is_new_text == 1:
                 break
         # Create dataframe and write
-        self.__write_xlsx(pd.DataFrame(__reco), "%s_recomendation" % self.sim_match)
+        self.__write_xlsx(pd.DataFrame(__reco), "recomendation")
 
     def __validate_input(self):
         """ Function to validate the input parameters """
         __ret_val = True
         try:
-            if int(self.sim_match) > 100 or int(self.sim_match) < 1:
-                __ret_val = False
-                LOG.error("\nSimilarity index is not less than 100")
             rows, columns = self.data_frame.shape
             LOG.info("\n#Row:%s #Col:%s" % (str(rows), str(columns)))
             input_list = self.col_int.split(',')
@@ -178,7 +170,6 @@ class SimilarityIO:
     def orchestrate_similarity(self):
         """Function which orchestrate the entire sequence of cosine similarity matching
         from IO layer"""
-
         if self.__read_to_panda_df() and self.__validate_input():
             self.__set_uniq_header()
             self.__get_duplicate_id()

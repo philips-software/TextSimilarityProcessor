@@ -37,10 +37,10 @@ class MyFunctionalTestCase(unittest.TestCase):
             os.remove(TestResource.duplicate_id_file_path)
 
     def test_below_ui(self):
-        """ Test function which injects the user input data skipping thetest_from_command_line
+        """ Test function which injects the user input data skipping the
         presentation later to the IO layer to check the underlying functionality """
 
-        cosine = SimilarityIO(TestResource.file_path, TestResource.similarity_index,
+        cosine = SimilarityIO(TestResource.file_path,
                               TestResource.testcase_id, TestResource.teststeps_id, TestResource.var,
                               TestResource.get_new_text)
         cosine.orchestrate_similarity()
@@ -55,7 +55,6 @@ class MyFunctionalTestCase(unittest.TestCase):
         win = TextSimilarityWindow(window)
         win.check_is_new_text.invoke()
         win.path_t.insert(0, str(TestResource.file_path))
-        win.sin_index_t.insert(0, 99)
         win.uniq_id_t.insert(0, 0)
         win.steps_t.insert(0, "1,2")
         time.sleep(2)
@@ -69,8 +68,8 @@ class MyFunctionalTestCase(unittest.TestCase):
         """Test function which provides input using command line interface"""
         script = os.path.abspath(os.path.join(TestResource.par_dir,
                                               "similarity_processor", "similarity_cmd.py"))
-        cmd = 'python3.7 %s --p "%s" --s "%s" --u "%s" --c "%s"' % (
-            script, TestResource.file_path, TestResource.command_similarity,
+        cmd = 'python3.7 %s --p "%s" --u "%s" --c "%s"' % (
+            script, TestResource.file_path,
             TestResource.command_unique_id, TestResource.command_colint)
         os.system(cmd)
         time.sleep(10)
@@ -80,7 +79,7 @@ class MyFunctionalTestCase(unittest.TestCase):
         """Function test the empty file/ incorrect data/ extra sheet in the input file"""
         text_check = 'Input data is incorrect/ file is invalid/It has more than one sheet'
         flag = False
-        cos_io_obj = SimilarityIO(TestResource.empty_file_path, TestResource.command_similarity,
+        cos_io_obj = SimilarityIO(TestResource.empty_file_path,
                                   TestResource.command_unique_id, TestResource.command_colint, 0)
         cos_io_obj.orchestrate_similarity()
         line = subprocess.check_output(['tail', '-1', TestResource.log_file_path])
