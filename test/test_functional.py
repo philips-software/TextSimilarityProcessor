@@ -28,7 +28,7 @@ class MyFunctionalTestCase(unittest.TestCase):
 
     @classmethod
     def tearDown(cls):
-        """"Deletes the files created: _merged, _recommendation and _duplicate."""
+        """"Deletes the files created: merged, recommendation and duplicate."""
         if os.path.exists(TestResource.merged_file_path):
             os.remove(TestResource.merged_file_path)
         if os.path.exists(TestResource.recommendation_file_path):
@@ -68,7 +68,7 @@ class MyFunctionalTestCase(unittest.TestCase):
         """Test function which provides input using command line interface"""
         script = os.path.abspath(os.path.join(TestResource.par_dir,
                                               "similarity_processor", "similarity_cmd.py"))
-        cmd = 'python3.7 %s --p "%s" --u "%s" --c "%s"' % (
+        cmd = 'python %s --p "%s" --u "%s" --c "%s"' % (
             script, TestResource.file_path,
             TestResource.command_unique_id, TestResource.command_colint)
         os.system(cmd)
@@ -95,22 +95,21 @@ class MyFunctionalTestCase(unittest.TestCase):
 
             if new_text:
                 __data_merged = pd.read_excel(TestResource.golden_new_merged_file_path)
-                __data_recomend = pd.read_excel(TestResource.golden_new_recommendation_file_path)
+                __data_recomend = pd.read_csv(TestResource.golden_new_recommendation_file_path)
             else:
                 __data_merged = pd.read_excel(TestResource.golden_merged_file_path)
-                __data_recomend = pd.read_excel(TestResource.golden_recommendation_file_path)
+                __data_recomend = pd.read_csv(TestResource.golden_recommendation_file_path)
 
-            act_df_recomend = pd.read_excel(TestResource.recommendation_file_path)
+            act_df_recomend = pd.read_csv(TestResource.recommendation_file_path)
             act_df_merged = pd.read_excel(TestResource.merged_file_path)
             act_df_duplicated = pd.read_excel(TestResource.duplicate_id_file_path)
-
-            self.assertEqual(True, __data_recomend['Similarity Index'].equals(act_df_recomend['Similarity Index']),
+            self.assertEqual(True, __data_recomend['SIMILARITY'].equals(act_df_recomend['SIMILARITY']),
                              "Actual and recommended Similarity Index data matches")
-            self.assertEqual(True, __data_recomend['Test Case(ID / Brief Description)'].equals(
-                act_df_recomend['Test Case(ID / Brief Description)']),
-                             "Actual and recommended ['Test Case(ID / Brief Description)'] data matches")
-            self.assertEqual(True, __data_recomend['Potential Match'].equals(act_df_recomend['Potential Match']),
-                             "Actual and recommended ['Potential Match'] data matches")
+            self.assertEqual(True, __data_recomend['UNIQ ID'].equals(
+                act_df_recomend['UNIQ ID']),
+                             "Actual and recommended ['UNIQ ID'] data matches")
+            self.assertEqual(True, __data_recomend['POTENTIAL MATCH'].equals(act_df_recomend['POTENTIAL MATCH']),
+                             "Actual and recommended ['POTENTIAL MATCH'] data matches")
             self.assertEqual(True, __data_merged.equals(act_df_merged), "Actual and merged data matches")
             self.assertEqual(True, __data_duplicate.equals(act_df_duplicated),
                              "Actual and duplicated data matches")

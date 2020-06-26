@@ -18,9 +18,8 @@ class TextSimilarityWindow:
     i = ROW_SPACER
 
     def __init__(self, win):
-        """constructor for textSimilarityWindow, which initializes
+        """constructor for text Similarity Window, which initializes
         the input variables needed to fetch from user """
-        self.new_text_data = None
         self.filename = None
         self.new_text = None
         self.is_new_text = IntVar()
@@ -63,8 +62,8 @@ class TextSimilarityWindow:
             self.path_t.delete(0, END)
             self.path_t.insert(0, str(self.filename))
         except TypeError as error:
-            print("Exception at browse_func method:", str(error))
-            LOG.error("Error:%s", str(error))
+            print("Exception at browse_func method:", str(error)) # pragma: no mutate
+            LOG.error("Error:%s", str(error)) # pragma: no mutate
 
     def __get_new_text(self):
         """ Function used to get the user input text in case of new text
@@ -79,8 +78,8 @@ class TextSimilarityWindow:
                                              self.is_new_text.get(), self.__get_new_text())
             similarity_io_obj.orchestrate_similarity()
         except TypeError as error:
-            print('Error:', str(error))
-            LOG.error("Error:%s", str(error))
+            print('Error:', str(error)) # pragma: no mutate
+            LOG.error("Error:%s", str(error)) # pragma: no mutate
 
 
 if __name__ == '__main__':

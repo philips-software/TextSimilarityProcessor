@@ -1,5 +1,5 @@
 """ This file does the  test of the "Text similarity processor
-from IO layer as well as cmdliner """
+from IO layer as well as command line """
 
 import os
 import unittest
