@@ -48,7 +48,7 @@ jobs:
       run: |
         python3 -m vulture --min-confidence 70 similarity_processor
     - name: Spelling check
-        run: |
+      run: |
           python3 -m pyspelling
     - name: Tests & Coverage
       run: |
