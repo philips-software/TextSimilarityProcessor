@@ -47,22 +47,22 @@ class MyFunctionalTestCase(unittest.TestCase):
         time.sleep(10)
         self.verify_functional_test()
 
-    @unittest.skipIf("TRAVIS" in os.environ and os.environ["TRAVIS"] == "true", "Skipping this test on Travis CI.")
-    def test_from_ui_new_text(self):
-        """Test function which injects the user input data at the presentation later
-        to check the end to end functionality"""
-        window = Tk()
-        win = TextSimilarityWindow(window)
-        win.check_is_new_text.invoke()
-        win.path_t.insert(0, str(TestResource.file_path))
-        win.uniq_id_t.insert(0, 0)
-        win.steps_t.insert(0, "1,2")
-        time.sleep(2)
-        win.new_text.insert(0, "a3 d4")
-        win.submit.invoke()
-        time.sleep(10)
-        window.quit()
-        self.verify_functional_test(True)
+    # @unittest.skipIf("TRAVIS" in os.environ and os.environ["TRAVIS"] == "true", "Skipping this test on Travis CI.")
+    # def test_from_ui_new_text(self):
+    #     """Test function which injects the user input data at the presentation later
+    #     to check the end to end functionality"""
+    #     window = Tk()
+    #     win = TextSimilarityWindow(window)
+    #     win.check_is_new_text.invoke()
+    #     win.path_t.insert(0, str(TestResource.file_path))
+    #     win.uniq_id_t.insert(0, 0)
+    #     win.steps_t.insert(0, "1,2")
+    #     time.sleep(2)
+    #     win.new_text.insert(0, "a3 d4")
+    #     win.submit.invoke()
+    #     time.sleep(10)
+    #     window.quit()
+    #     self.verify_functional_test(True)
 
     def test_from_command_line(self):
         """Test function which provides input using command line interface"""
