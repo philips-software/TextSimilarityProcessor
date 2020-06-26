@@ -64,3 +64,4 @@ numpy
 pyspelling
 scikit
 workflows
+MERCHANTABILITY

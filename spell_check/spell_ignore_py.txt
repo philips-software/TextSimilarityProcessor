@@ -6,3 +6,4 @@ nan
 dataframe
 xlsx
 cmd
+minimalistic
