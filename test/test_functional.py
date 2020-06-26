@@ -2,7 +2,7 @@
 from IO layer as well as UI later """
 import os
 import unittest
-from tkinter import Tk
+# from tkinter import Tk
 import time
 import subprocess
 from test.test_resource import TestResource
