@@ -8,7 +8,7 @@ import subprocess
 from test.test_resource import TestResource
 import pandas as pd
 from similarity_processor.similarity_io import SimilarityIO
-from similarity_processor.similarity_ui import TextSimilarityWindow
+# from similarity_processor.similarity_ui import TextSimilarityWindow
 
 
 def verify_file_path():
