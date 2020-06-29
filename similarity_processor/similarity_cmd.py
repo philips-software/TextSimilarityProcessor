@@ -4,7 +4,7 @@ import sys
 import argparse
 sys.path.append(os.path.abspath(os.path.join
                                 (os.path.dirname(__file__), os.pardir
-                                 )))
+                                 )))# pragma: no mutate
 from similarity_processor.similarity_io import SimilarityIO
 
 

@@ -12,7 +12,7 @@ LOG = cl.get_logger()
 
 
 def is_nan(value):
-    """ Function which identifies the "nan" on empty cells """
+    """ Function which identifies the "nan" on empty cells """
     try:
         return math.isnan(float(value))
     except ValueError:
@@ -29,7 +29,7 @@ class SimilarityIO:
         processing """
         LOG.info("\nSimilarity_UI \nValues passed:\n") # pragma: no mutate
         self.file_path = file_path
-        LOG.info("Path:%s", str(self.file_path))
+        LOG.info("Path:%s", str(self.file_path)) # pragma: no mutate
         self.uniq_id = uniq_id
         LOG.info("\nUnique ID Column:%s", str(self.uniq_id)) # pragma: no mutate
         self.col_int = col_int
