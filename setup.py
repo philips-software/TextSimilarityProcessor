@@ -23,7 +23,7 @@ with open('requirements.txt') as f:
 
 setuptools.setup(
     name="similarity_processor",
-    version="0.0.2",
+    version="0.0.4",
     author="Brijesh",
     author_email="brijesh.krishnank@philips.com",
     description="Text Similarity Index Processor",

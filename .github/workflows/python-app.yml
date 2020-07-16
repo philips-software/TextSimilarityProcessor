@@ -26,6 +26,9 @@ jobs:
       run: |
         python3 -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Check version
+      run: |
+        python3 -m pypi-version check        
     - name: Aspell install
       run: |
         sudo apt-get update -qq
