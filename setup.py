@@ -28,7 +28,7 @@ setuptools.setup(
     version="0.0.4",
     author="Brijesh",
     author_email="brijesh.krishnank@philips.com",
-    description="Text Similarity Index Processor",
+    description="Text Similarity Processor",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/philips-software/TextSimilarityProcessor",
