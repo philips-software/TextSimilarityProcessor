@@ -7,20 +7,22 @@ def get_description(file_name):
         description = fh.read()
         return description
 
-
 with open("README.md", "r") as fh:
     long_description = fh.read()
-
-with open('requirements.txt') as f:
-    required = f.read().splitlines()
     if "[MAINTAINERS.md](MAINTAINERS.md)" in long_description:
         long_description = long_description.replace("[MAINTAINERS.md](MAINTAINERS.md)",
                                                     str(get_description("MAINTAINERS.md")))
-    if "[License.md](License.md)" in long_description:
-        long_description = long_description.replace("[License.md](License.md)", str(get_description("LICENSE.md")))
+
     if "[INSTALL.md](INSTALL.md)" in long_description:
         long_description = long_description.replace("[INSTALL.md](INSTALL.md)", str(get_description("INSTALL.md")))
+        
+    if "[License.md](LICENSE.md)" in long_description:
+        long_description = long_description.replace("[License.md](LICENSE.md)", str(get_description("LICENSE.md")))
+    print(long_description)
 
+with open('requirements.txt') as f:
+    required = f.read().splitlines()
+    
 setuptools.setup(
     name="similarity_processor",
     version="0.0.4",

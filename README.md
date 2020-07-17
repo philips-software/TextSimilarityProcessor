@@ -40,7 +40,7 @@ vulture==1.3
 
 Installation
 ====================
-[INSTALL.md](INSTALL.md) 
+[INSTALL.md](INSTALL.md)
 
 `pip install similarity-processor`
 
@@ -179,8 +179,10 @@ and do further processing.
 
 Contact / Getting help
 ====================
-[MAINTAINERS.md](MAINTAINERS.md) 
+[MAINTAINERS.md](MAINTAINERS.md)
 
 License
 ====================
-[License.md](LICENSE.md) 
+[License.md](LICENSE.md)
+
+
