@@ -25,7 +25,7 @@ with open('requirements.txt') as f:
 setuptools.setup(
     name="similarity_processor",
     version_config={
-        "version_format": '{tag}.dev{commitcount}+{gitsha}',
+        "version_format": "{tag}.dev{sha}",
         "starting_version": "0.0.1"
     },
     setup_requires=['setuptools-git-version'], 
