@@ -28,8 +28,8 @@ python -m pip install mutmut
 pytest:
 python -m pip install pytest
 
-unittest:
-python -m pip install unittest
+unit test:
+python -m pip install unit test
 
 codecov:
 python -m pip install codecov

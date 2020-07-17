@@ -1,11 +1,11 @@
-[![Build Status](https://travis-ci.com/philips-software/TextSimilarityProcessor.svg?branch=master)](https://travis-ci.com/philips-software/TextSimilarityProcessor)
+![Python application](https://github.com/philips-software/TextSimilarityProcessor/workflows/Python%20application/badge.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![codecov](https://codecov.io/gh/philips-software/TextSimilarityProcessor/branch/master/graph/badge.svg)](https://codecov.io/gh/philips-software/TextSimilarityProcessor)
 
 
 Text Similarity Index processor
 ====================
-What is the project intented to solve?
+What is the project intended to solve?
 --------
 Resolving the Technical Debt in "Test/Requirement/Issues/Any-text" repos with unique id using Natural Language Processing Continuous 
 duplicate monitoring system in place to check the duplication of any new text added to "Test/Requirement/Issues/Any-text" bank. 
@@ -20,23 +20,27 @@ Python with few python packages mentioned in the [INSTALL.md](INSTALL.md)
 
 Dependencies
 --------
-Python 3.7.3
+Python 3.8
  
 [packages]
 
-pip,
-mutmut,
-pytest,
-xlrd,
-xlsxwriter,
-pandas,
-codecov,
-pytest-cov,
-pylint
+pyspelling==2.6
+mutmut==1.5.1
+pytest==5.0.0
+xlrd==1.2.0
+xlsxwriter==1.2.1
+codecov==2.0.15
+pytest-cov==2.7.1
+pylint==2.3.1
+pandas==1.0.5
+scikit-learn==0.23.1
+numpy==1.18.5
+lizard==1.17.3
+vulture==1.3
 
 Installation
 ====================
-[INSTALL.md](INSTALL.md) 
+[INSTALL.md](INSTALL.md)
 
 `pip install similarity-processor`
 
@@ -57,7 +61,7 @@ Execute the `similarity_ui.py`, which will open the UI window where you need to 
 
 1. Path to the test/requirement/other other document to be analyzed.
 2. Unique ID in the csv/xlsx column ID(0/1 etc...)
-3. Steps/Description id for content matching (column of interest IDs in the csv/xlsx seperated by , like 1,2,3)
+3. Steps/Description id for content matching (column of interest IDs in the csv/xlsx separated by , like 1,2,3)
 4. If new requirement / test to me checked with existing, enable the check box and paste the content to be checked in
 the new text box.
 
@@ -73,7 +77,7 @@ Text Similarity Index Processor
 optional arguments:
   -h, --help      show this help message and exit
   --path --p      the Input file path
-  --uniqid --u    uniq id index(column) of the input file
+  --uniqid --u    unique id index(column) of the input file
   --colint --c    the col of interest
 ``` 
 
@@ -129,7 +133,7 @@ through UI
 ```
 1. Path to the test/requirement/other other document to be analyzed.
 2. Unique ID in the csv/xlsx column ID(0/1 etc...)
-3. Steps/Description id for content matching (column of interest IDs in the csv/xlsx seperated by , like 1,2,3)
+3. Steps/Description id for content matching (column of interest IDs in the csv/xlsx separated by , like 1,2,3)
 4. If new requirement / test to me checked with existing, enable the check box and paste the content to be checked in
 the new text box.
 
@@ -175,8 +179,10 @@ and do further processing.
 
 Contact / Getting help
 ====================
-[MAINTAINERS.md](MAINTAINERS.md) 
+[MAINTAINERS.md](MAINTAINERS.md)
 
 License
 ====================
-[License.md](LICENSE.md) 
+[License.md](LICENSE.md)
+
+

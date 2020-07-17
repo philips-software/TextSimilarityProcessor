@@ -1,4 +1,4 @@
-""" Init file to set the path"""
+""" Initialization file to set the path"""
 import os
 import sys
 sys.path.append(os.path.abspath(os.path.join
