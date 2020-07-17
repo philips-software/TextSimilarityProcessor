@@ -24,11 +24,11 @@ with open('requirements.txt') as f:
     
 setuptools.setup(
     name="similarity_processor",
-    #version_config={
-    #    "version_format": "{tag}.dev{sha}",
-    #    "starting_version": "0.0.1"
-    #},
-    version="0.0.3",
+    version_config={
+        "version_format": "{tag}.dev{sha}",
+        "starting_version": "0.0.1"
+    },
+    #version="0.0.3",
     setup_requires=['better-setuptools-git-version'],
     author="Brijesh",
     author_email="brijesh.krishnank@philips.com",
