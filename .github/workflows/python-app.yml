@@ -54,12 +54,7 @@ jobs:
         pytest test --cov-config=.coveragerc --cov=similarity_processor
         coverage report --fail-under=95 #Coverage should be above 95%
         codecov
-    - name: Mutation Tests
-      run: |
-        mutmut run > mutmut.log || true # Checking mutation on main file as the travis max execution time is overshooting
-        mutmut junitxml --suspicious-policy=ignore --untested-policy=ignore > mutmut.xml
-        python3 test_resource/mutmut_parse.py --m 20 #Mutation (failure+disables+error) allowed 20% of total mutants
-        
+
   publish:
     name: Build and publish Python 🐍 distributions 📦 to PyPI and TestPyPI
     needs: build

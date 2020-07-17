@@ -18,7 +18,6 @@ with open("README.md", "r") as fh:
         
     if "[License.md](LICENSE.md)" in long_description:
         long_description = long_description.replace("[License.md](LICENSE.md)", str(get_description("LICENSE.md")))
-    print(long_description)
 
 with open('requirements.txt') as f:
     required = f.read().splitlines()
@@ -26,10 +25,10 @@ with open('requirements.txt') as f:
 setuptools.setup(
     name="similarity_processor",
     version_config={
-        "version_format": "{tag}.dev{sha}",
+        "version_format": '{tag}.dev{commitcount}+{gitsha}',
         "starting_version": "0.0.1"
     },
-    setup_requires=['better-setuptools-git-version'],
+    setup_requires=['setuptools-git-version'],    
     author="Brijesh",
     author_email="brijesh.krishnank@philips.com",
     description="Text Similarity Processor",
