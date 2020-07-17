@@ -14,28 +14,28 @@ class MyUnitTestCase(unittest.TestCase):
 
     def test_get_positive_cosine(self):
         """This method checks the value returned by the cosine_core.get_cosine()
-        for vec1, vec2: Input vector from the texts to be compared - positive cosine """
+        for vector 1, vector 2: Input vector from the texts to be compared - positive cosine """
         positive_cosine = cc.get_cosine(Counter({"hello": 16, "Language": 30, "python": 66}),
                                         Counter({"Mac": 9, "MANGO": 27, "python": 88, "hello": 5}))
         self.assertEqual(0.8562387195638202, positive_cosine, "Value should not be equal to 0")
 
     def test_get_negative_cosine(self):
         """This method checks the value returned by the cosine_core.get_cosine()
-        for vec1, vec2: Input vector from the texts to be compared - negative cosine value"""
+        for vector 1, vector 2: Input vector from the texts to be compared - negative cosine value"""
         negative_cosine = cc.get_cosine(Counter({"hello_World": 99}),
                                         Counter({"TEST": 888}))
         self.assertEqual(0.0, negative_cosine, "Value should be 0.0")
 
     def test_get_cosine_same(self):
         """This method checks the value returned by the cosine_core.get_cosine()
-        for vec1, vec2: Input vector from the texts to be compared"""
+        for vector 1, vector 2: Input vector from the texts to be compared"""
         positive_cosine = cc.get_cosine(Counter({"hello": 16, "Language": 30, "python": 66}),
                                         Counter({"hello": 16, "Language": 30, "python": 66}))
         self.assertEqual(1.0, positive_cosine, "Value should not be equal to 0")
 
     def test_get_cosine_none(self):
         """This method checks the value returned by the cosine_core.get_cosine()
-        for vec1, vec2: Input vector from the texts to be compared"""
+        for vector 1, vector 2: Input vector from the texts to be compared"""
         _cosine = cc.get_cosine(Counter({"": 0}),
                                 Counter({"": 0}))
         self.assertEqual(0.0, _cosine, "Value should be equal to 0")
