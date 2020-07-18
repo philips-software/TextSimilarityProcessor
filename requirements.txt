@@ -12,6 +12,6 @@ numpy==1.18.5
 lizard==1.17.3
 vulture==1.3
 pypi-version==0.2.0
-better-setuptools-git-version==1.0.5
+version-query==1.1.0
 
 
