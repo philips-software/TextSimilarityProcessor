@@ -4,7 +4,3 @@ include requirements.txt
 include LICENSE.md
 include MAINTAINERS.md
 include README.md
-graft is_number
-recursive-exclude * *.py[co]
-include versioneer.py
-include is_number/_version.py
