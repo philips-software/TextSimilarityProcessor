@@ -27,12 +27,12 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi        
     - name: Aspell install
       run: |
-        sudo apt-get update -qq
-        sudo apt-get install --assume-yes aspell aspell-en
+        apt-get update -qq
+        apt-get install --assume-yes aspell aspell-en
     - name: npm install
       run: |
-        sudo npm install
-        sudo npm install -g jscpd@3.2.1
+        npm install
+        npm install -g jscpd@3.2.1
     - name: Static Analysis
       run: |
         pylint similarity_processor/ test/
@@ -62,7 +62,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.8
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v2
       with:
         python-version: 3.8
     - name: Install wheel
