@@ -13,7 +13,6 @@ jobs:
 
   publish:
     name: Build and publish Python 🐍 distributions 📦 to PyPI and TestPyPI
-    needs: build
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v2
