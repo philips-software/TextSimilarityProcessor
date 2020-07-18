@@ -70,6 +70,11 @@ jobs:
         python -m
         pip install
         wheel==0.34.2
+    - name: Install Version
+      run: >-
+        python -m
+        pip install
+        version-query==1.1.0
     - name: Build a binary wheel and a source tarball
       run: >-
         python3 setup.py sdist bdist_wheel
