@@ -1,7 +1,6 @@
 import setuptools
-from version_query import predict_version_str
+from version import get_version
 
-__version__ = predict_version_str()
 
 def get_description(file_name):
     """ replace the license content while creating the package"""
@@ -24,14 +23,18 @@ with open("README.md", "r") as fh:
 with open('requirements.txt') as f:
     required = f.read().splitlines()
 
+version = get_version(pep440=True)
 setuptools.setup(
     name="similarity_processor",
     #version_config={
    #     "version_format": "{tag}.dev{sha}",
     #    "starting_version": "0.0.1"
     #},
-    version=__version__,
-    setup_requires=['better-setuptools-git-version'],
+    version=version,
+    #version=versioneer.get_version(),
+    #cmdclass=versioneer.get_cmdclass(),
+    #setup_requires=['better-setuptools-git-version'],
+    
     author="Brijesh",
     author_email="brijesh.krishnank@philips.com",
     description="Text Similarity Processor",
@@ -49,4 +52,5 @@ setuptools.setup(
     install_requires=required,
     python_requires='>=3.7',
 )
+
 
