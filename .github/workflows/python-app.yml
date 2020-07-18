@@ -70,9 +70,6 @@ jobs:
         python -m
         pip install
         wheel==0.34.2
-    - name: Install git
-      run: >-
-        sudo apt install git-all
     - name: Build a binary wheel and a source tarball
       run: >-
         python3 setup.py sdist bdist_wheel
