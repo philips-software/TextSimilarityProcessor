@@ -4,4 +4,5 @@ similarity_processor.egg-info/
 __pycache__
 similarity_processor/text_similarity.log
 similarity_processor\text_similarity.log
+.eggs/"version.txt" 
 .eggs/

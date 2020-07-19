@@ -1,4 +1,5 @@
 import setuptools
+from versiontag import get_version, cache_git_tag
 
 def get_description(file_name):
     """ replace the license content while creating the package"""
@@ -38,8 +39,9 @@ setuptools.setup(
     #},
     #setup_requires=['setuptools_scm'],
     
-    use_scm_version=myversion,
-    setup_requires=['setuptools_scm'],
+    #use_scm_version=myversion,
+    #setup_requires=['setuptools_scm'],
+    version=get_version(pypi=True),
     
     author="Brijesh",
     author_email="brijesh.krishnank@philips.com",
