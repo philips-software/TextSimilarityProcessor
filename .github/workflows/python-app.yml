@@ -21,6 +21,9 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
+    - name: pull git tags
+      run: >-
+        git pull --tags
     - name: Install scm version
       run: >-
         python -m
