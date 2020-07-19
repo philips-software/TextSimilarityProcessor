@@ -30,10 +30,12 @@ setuptools.setup(
    #     "version_format": "{tag}.dev{sha}",
     #    "starting_version": "0.0.1"
     #},
-    version=version,
+    #version=version,
     #version=versioneer.get_version(),
     #cmdclass=versioneer.get_cmdclass(),
     #setup_requires=['better-setuptools-git-version'],
+    use_scm_version=True,
+    setup_requires=['setuptools_scm'],
     
     author="Brijesh",
     author_email="brijesh.krishnank@philips.com",
