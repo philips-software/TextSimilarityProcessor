@@ -1,6 +1,4 @@
 import setuptools
-from version import get_version
-
 
 def get_description(file_name):
     """ replace the license content while creating the package"""
@@ -23,7 +21,6 @@ with open("README.md", "r") as fh:
 with open('requirements.txt') as f:
     required = f.read().splitlines()
 
-version = get_version(pep440=True)
 setuptools.setup(
     name="similarity_processor",
     use_scm_version=True,
