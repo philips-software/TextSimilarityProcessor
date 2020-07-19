@@ -4,11 +4,12 @@
 name: Build Python application and Publish Python 🐍 distributions 📦 to PyPI and TestPyPI
 on:
   push:
-    branches: [ master ]
+    branches: 
+        - '**'
+    
   pull_request:
     branches: [ master ]
-  on.push.tags:
-    branches: [ master ]
+
 env:
   NODE_VERSION: '10.x'                # set this to the node version to use
 jobs:
