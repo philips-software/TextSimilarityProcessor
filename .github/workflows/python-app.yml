@@ -17,15 +17,12 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v2
+    - name: Fetch all history for all tags and branches
+      run: git fetch --prune --unshallow
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
-    - name: pull git tags
-      run: >-
-        git fetch --unshallow --tags
-        echo $?
-        git tag --list
     - name: Install scm version
       run: >-
         python -m
