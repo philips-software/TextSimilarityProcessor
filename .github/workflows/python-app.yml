@@ -23,7 +23,7 @@ jobs:
         python-version: 3.8
     - name: pull git tags
       run: >-
-        git pull --tags
+        git fetch upstream --tags
     - name: Install scm version
       run: >-
         python -m
