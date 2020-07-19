@@ -26,14 +26,6 @@ with open('requirements.txt') as f:
 version = get_version(pep440=True)
 setuptools.setup(
     name="similarity_processor",
-    #version_config={
-   #     "version_format": "{tag}.dev{sha}",
-    #    "starting_version": "0.0.1"
-    #},
-    #version=version,
-    #version=versioneer.get_version(),
-    #cmdclass=versioneer.get_cmdclass(),
-    #setup_requires=['better-setuptools-git-version'],
     use_scm_version=True,
     setup_requires=['setuptools_scm'],
     
