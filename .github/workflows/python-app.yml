@@ -4,7 +4,7 @@
 name: Build Python application and Publish Python 🐍 distributions 📦 to PyPI and TestPyPI
 on:
   push:
-    branches: [ master ]    
+    branches: [ packaging_similarity ]    
   pull_request:
     branches: [ master ]
 
