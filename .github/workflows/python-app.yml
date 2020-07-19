@@ -6,7 +6,7 @@ on:
   push:
     branches: [ packaging_similarity ]    
   pull_request:
-    branches: [ master ]
+    branches: [ packaging_similarity ]
 
 env:
   NODE_VERSION: '10.x'                # set this to the node version to use
@@ -35,7 +35,7 @@ jobs:
       run: >-
         python3 setup.py sdist bdist_wheel
     - name: Publish distribution 📦 to Test PyPI
-      uses: pypa/gh-action-pypi-publish@packaging_similarity
+      uses: pypa/gh-action-pypi-publish@master
       with:
         password: ${{ secrets.test_pypi_password }}
         repository_url: https://test.pypi.org/legacy/
