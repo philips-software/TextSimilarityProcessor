@@ -11,9 +11,9 @@ def create_parser(args):
 
     # Add the arguments
     mutmut_parser.add_argument('--mut',
-                            metavar='--m',
-                            type=int,
-                            help='mutation benchmark')
+                               metavar='--m',
+                               type=int,
+                               help='mutation benchmark')
     return mutmut_parser.parse_args(args)
 
 
@@ -37,7 +37,7 @@ def parse_mutmut_report_xml(allow_fail):
         errors = int(root.get('errors'))
         failures = int(root.get('failures'))
         tests = int(root.get('tests'))
-        total_fail = disabled+errors+failures
+        total_fail = disabled + errors + failures
         print("Total Failure= %s || Total Tests= %s || Total Allowed percent fail= %s" % (total_fail, tests,
                                                                                           allow_fail))
         check_pass_fail(total_fail, tests, allow_fail)
@@ -46,7 +46,6 @@ def parse_mutmut_report_xml(allow_fail):
 
 
 if __name__ == '__main__':
-    """ Entry function for mutmut parser"""
     # Execute the parse_args() method
     ARGS = create_parser(sys.argv[1:])
     # Process the cosine with inputs provided
