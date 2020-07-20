@@ -12,9 +12,57 @@ on:
 env:
   NODE_VERSION: '10.x'                #  set this to the node version to use
 jobs:
+  build:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+        node-version: ${{ env.NODE_VERSION }}
+    - name: Install dependencies
+      run: |
+        python3 -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi        
+    - name: Aspell install
+      run: |
+        sudo apt-get update -qq
+        sudo apt-get install --assume-yes aspell aspell-en
+    - name: npm install
+      run: |
+        sudo npm install
+        sudo npm install -g jscpd@3.2.1
+    - name: Static Analysis
+      run: |
+        pylint similarity_processor/ test/
+        jscpd --min-tokens 20 --reporters "json" --mode "strict" --format "python" -o . .
+        python3 test_resource/jscpd_parser.py --j 10 #Allowed duplication is 10% with 20 token size
+
+    - name: Cyclomatic complexity
+      run: |
+        python3 -m lizard similarity_processor -X> CC.xml
+        python3 test_resource/cyclo_gate.py --c 6 #Allowed cyclomatic complexity is less than 6
+    - name: Dead Code
+      run: |
+        python3 -m vulture --min-confidence 70 similarity_processor
+    - name: Spelling check
+      run: |
+          python3 -m pyspelling
+    - name: Tests & Coverage
+      run: |
+        pytest test --cov-config=.coveragerc --cov=similarity_processor
+        coverage report --fail-under=95 #Coverage should be above 95%
+        codecov
+    #- name: Mutation Tests
+    #  run: |
+    #    mutmut run > mutmut.log || true # Checking mutation on main file as the travis max execution time is overshooting
+    #    mutmut junitxml --suspicious-policy=ignore --untested-policy=ignore > mutmut.xml
+    #    python3 test_resource/mutmut_parse.py --m 20 #Mutation (failure+disables+error) allowed 20% of total mutants
 
   publish:
     name: Build and publish Python 🐍 distributions 📦 to PyPI and TestPyPI
+    needs: build
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v2
@@ -23,12 +71,7 @@ jobs:
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
-        python-version: 3.8
-    - name: Install scm version
-      run: >-
-        python -m
-        pip install
-        versiontag      
+        python-version: 3.8   
     - name: Install wheel
       run: >-
         python -m
