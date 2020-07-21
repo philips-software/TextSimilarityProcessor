@@ -9,7 +9,7 @@ from subprocess_calls import call_subprocess
 
 def create_input():
     """ Function used to generate the input file to do the performance test"""
-    row_size = 10  # given row size = 10 will generate around 17,000 rows of data in the excel file generated.
+    row_size = 1  # given row size = 10 will generate around 17,000 rows of data in the excel file generated.
     data = []
     for __ in range(row_size):
         data.extend(lipsum.paras(150, True).split('.'))
@@ -61,7 +61,6 @@ def get_last_line_file(file):
     data_frame = function_dict[file.split('.')[-1].upper()](file)
     if data_frame.empty:
         print('DataFrame is empty!/ input file is not generated')
-    print(data_frame.index[-1])
     return data_frame.index[-1]
 
 
