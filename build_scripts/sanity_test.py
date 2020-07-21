@@ -4,8 +4,8 @@ import unittest
 import sys
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'test'))
-from test_resource import TestResource
-from verify_path import FunctionalTestVerification
+from test_resource import TestResource # pylint: disable=E0611
+from verify_path import FunctionalTestVerification # pylint: disable=E0401
 from subprocess_calls import call_subprocess
 
 

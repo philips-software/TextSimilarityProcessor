@@ -4,16 +4,6 @@ import sys
 import subprocess
 
 
-# def get_version_sub_string():
-#     """ function returns the current package version substring"""
-#     cwd = os.getcwd()
-#     proj_root = os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir)))
-#     os.chdir(proj_root)
-#     proc = subprocess.Popen("python setup.py --version", stdout=subprocess.PIPE)
-#     os.chdir(cwd)
-#     return proc.communicate()[0].rstrip().decode("utf-8")
-
-
 def find_installer():
     """ Function finds the installer full name based on the substring"""
     proj_dist = os.path.join(os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir))), "dist")
@@ -30,7 +20,7 @@ def cmd_package():
     """ Function validates only one installer is present then issues install command"""
     whl_list = [whl for whl in find_installer() if "whl" in whl]
     if len(whl_list) != 1:
-        print("unable to find the installer")
+        print("unable to find the installer, only one whl file presence is supported!")
         sys.exit(1)
     whl_matching = ''.join(whl_list)
     proj_dist = os.path.join(os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir))), "dist", whl_matching)

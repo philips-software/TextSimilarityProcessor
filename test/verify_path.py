@@ -2,8 +2,9 @@
 
 import os
 import unittest
-from test_resource import TestResource
 import pandas as pd
+from test_resource import TestResource # pylint: disable=E0611
+
 
 
 def verify_file_path():

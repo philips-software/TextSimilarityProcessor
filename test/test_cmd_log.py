@@ -8,7 +8,7 @@ import subprocess
 from datetime import datetime
 from test.test_resource import TestResource
 from similarity_processor.similarity_cmd import create_parser
-import similarity_logging as cl
+import similarity_logging as cl  #pylint: disable=E0401
 LOG = cl.get_logger()
 
 
