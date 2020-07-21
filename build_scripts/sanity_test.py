@@ -4,8 +4,8 @@ import unittest
 import sys
 
 sys.path.insert(0, '../test')
-from test_resource import TestResource
-from verify_path import FunctionalTestVerification
+from test.test_resource import TestResource
+from test.verify_path import FunctionalTestVerification
 from subprocess_calls import call_subprocess
 
 
