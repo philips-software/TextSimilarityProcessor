@@ -33,6 +33,7 @@ class SanityTestVerification(unittest.TestCase):
                                   "test_resource", "Testcases.xlsx")
         call_subprocess('python3 -m similarity_processor.similarity_cmd --p "%s" --u 0 --c "1,2"' % input_file)
         self.verify_func_obj.verify_functional_test()
+        print("Sanity test is COMPLETED & PASSED")
 
 
 if __name__ == '__main__':

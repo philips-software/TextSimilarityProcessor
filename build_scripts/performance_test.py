@@ -11,8 +11,7 @@ def create_input():
     """ Function used to generate the input file to do the performance test"""
     row_size = 10  # given row size = 10 will generate around 17,000 rows of data in the excel file generated.
     data = []
-    for i in range(row_size):
-        print(i)
+    for __ in range(row_size):
         data.extend(lipsum.paras(150, True).split('.'))
     dataf = pd.DataFrame(data, columns=['Steps'])
     dataf.index.name = 'Uniq ID'
@@ -45,9 +44,10 @@ def run_performance_test():
                                                                                                     execution_time,
                                                                                                     out_count))
     file_out = open(os.path.join(os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir))), "perfo.txt"), 'w')
-    f.write("Total time taken to analyse %s in data is %s sec and generated %s combination match " % (input_count,
-                                                                                                      execution_time,
-                                                                                                      out_count))
+    file_out.write(
+        "Total time taken to analyse %s in data is %s sec and generated %s combination match " % (input_count,
+                                                                                                  execution_time,
+                                                                                                  out_count))
     file_out.close()
     validate_perfo(execution_time, input_count)
 
