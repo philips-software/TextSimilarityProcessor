@@ -1,10 +1,11 @@
 """file to verify the functional tests."""
 
 import os
+import sys
 import unittest
 import pandas as pd
+sys.path.append(os.path.dirname(__file__)
 from test_resource import TestResource # pylint: disable=E0611
-
 
 
 def verify_file_path():
