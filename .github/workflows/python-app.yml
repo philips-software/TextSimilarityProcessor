@@ -25,6 +25,12 @@ jobs:
       - name: Install dependencies Conduct Static analysis Test Coverage Mutation
         run: |
           python3 build_scripts/dependencies_static_analysis_test_cov.py
+      - uses: actions/upload-artifact@v2
+        path: |
+          htmlcov
+          CC.xml
+          jscpd-report.json
+
   publish:
     name: Build , Smoke test , Performance test, and publish Python 🐍 distributions 📦 to PyPI and TestPyPI
     needs: build
@@ -52,6 +58,9 @@ jobs:
     - name: Conduct the performance test on new wheel created
       run: |
           python3 build_scripts/performance_test.py
+    - uses: actions/upload-artifact@v2
+        path: |
+          perfo.txt
     - name: Publish distribution 📦 to Test PyPI
       uses: pypa/gh-action-pypi-publish@master
       with:
