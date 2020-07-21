@@ -9,7 +9,7 @@ from subprocess_calls import call_subprocess
 
 def create_input():
     """ Function used to generate the input file to do the performance test"""
-    row_size = 1  # given row size = 10 will generate around 17,000 rows of data in the excel file generated.
+    row_size = 5  # given row size = 10 will generate around 17,000 rows of data in the excel file generated.
     data = []
     for __ in range(row_size):
         data.extend(lipsum.paras(150, True).split('.'))
