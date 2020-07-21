@@ -3,9 +3,9 @@ import os
 import unittest
 import sys
 
-sys.path.insert(0, '../test')
-from test.test_resource import TestResource
-from test.verify_path import FunctionalTestVerification
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'test'))
+from test_resource import TestResource
+from verify_path import FunctionalTestVerification
 from subprocess_calls import call_subprocess
 
 
