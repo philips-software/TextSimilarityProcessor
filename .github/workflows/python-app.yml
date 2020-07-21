@@ -28,10 +28,10 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: my-artifact_static_analysis
-        path: |
-          htmlcov
-          CC.xml
-          jscpd-report.json
+          path: |
+            htmlcov
+            CC.xml
+            jscpd-report.json
 
   publish:
     name: Build , Smoke test , Performance test, and publish Python 🐍 distributions 📦 to PyPI and TestPyPI
@@ -63,8 +63,8 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: my-artifact_performance
-      path: |
-          perfo.txt
+        path: |
+            perfo.txt
     - name: Publish distribution 📦 to Test PyPI
       uses: pypa/gh-action-pypi-publish@master
       with:
