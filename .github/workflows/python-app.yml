@@ -44,6 +44,12 @@ jobs:
     - name: Build a binary wheel and a source tarball
       run: |
         python3 setup.py sdist bdist_wheel
+    - name: Install newly created wheel
+        run: |
+          python3 build_scripts/install_package.py
+    - name: Conduct the sanity test on new wheel created
+        run: |
+          python3 build_scripts/sanity_test.py
     - name: Publish distribution 📦 to Test PyPI
       uses: pypa/gh-action-pypi-publish@master
       with:
