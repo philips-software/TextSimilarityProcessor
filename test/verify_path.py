@@ -7,8 +7,7 @@ import pandas as pd
 
 
 def verify_file_path():
-    """This function checks the required files are being generated
-    or not"""
+    """This function checks the required files are being generated or not"""
     if (os.path.exists(TestResource.merged_file_path) and
             os.path.exists(TestResource.recommendation_file_path) and
             os.path.exists(TestResource.duplicate_id_file_path)):
