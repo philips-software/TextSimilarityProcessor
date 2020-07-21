@@ -4,21 +4,21 @@ import sys
 import subprocess
 
 
-def get_version_sub_string():
-    """ function returns the current package version substring"""
-    cwd = os.getcwd()
-    proj_root = os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir)))
-    os.chdir(proj_root)
-    proc = subprocess.Popen("python setup.py --version", stdout=subprocess.PIPE)
-    os.chdir(cwd)
-    return proc.communicate()[0].rstrip().decode("utf-8")
+# def get_version_sub_string():
+#     """ function returns the current package version substring"""
+#     cwd = os.getcwd()
+#     proj_root = os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir)))
+#     os.chdir(proj_root)
+#     proc = subprocess.Popen("python setup.py --version", stdout=subprocess.PIPE)
+#     os.chdir(cwd)
+#     return proc.communicate()[0].rstrip().decode("utf-8")
 
 
 def find_installer():
     """ Function finds the installer full name based on the substring"""
     proj_dist = os.path.join(os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir))), "dist")
     installer_list = os.listdir(proj_dist)
-    return [item for item in installer_list if "%s" % get_version_sub_string() in item]
+    return [item for item in installer_list if "similarity_processor" in item]
 
 
 def install(package):
