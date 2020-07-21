@@ -9,7 +9,7 @@ def get_version_sub_string():
     cwd = os.getcwd()
     proj_root = os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir)))
     os.chdir(proj_root)
-    proc = subprocess.Popen("python3 setup.py --version", stdout=subprocess.PIPE)
+    proc = subprocess.Popen("python setup.py --version", stdout=subprocess.PIPE)
     os.chdir(cwd)
     return proc.communicate()[0].rstrip().decode("utf-8")
 

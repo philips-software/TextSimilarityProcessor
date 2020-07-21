@@ -12,23 +12,11 @@ on:
 env:
   NODE_VERSION: '10.x'                #  set this to the node version to use
 jobs:
-  build:
-    name: Conduct "Static analysis, Test & Coverage, Spell check, Mutation testing " for 🐍 code
-    runs-on: ubuntu-18.04
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-        node-version: ${{ env.NODE_VERSION }}
-    - name: Install dependencies Conduct Static analysis Test Coverage Mutation
-      run: |
-        python3 build_scripts/dependencies_static_analysis_test_cov.py
+
 
   publish:
     name: Build , Smoke test , Performance test, and publish Python 🐍 distributions 📦 to PyPI and TestPyPI
-    needs: build
+
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@v2
