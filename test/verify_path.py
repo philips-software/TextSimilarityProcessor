@@ -1,4 +1,4 @@
-"""Koninklijke Philips N.V., 2019 - 2020. All rights reserved."""
+"""file to verify the functional tests."""
 
 import os
 import unittest
