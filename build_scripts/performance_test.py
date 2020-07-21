@@ -40,14 +40,13 @@ def run_performance_test():
     execution_time = time1 - time0
     out_file = os.path.join(os.path.abspath(os.path.join(__file__, os.pardir)), "input_data_recommendation.csv")
     out_count = get_last_line_file(out_file)
-    print("Total time taken to analyse %s in data is %s sec and generated %s combination match " % (input_count,
-                                                                                                    execution_time,
-                                                                                                    out_count))
+    print("Total time taken to analyse %s input data is %s sec and generated %s combination match " % (input_count,
+                                                                                                       execution_time,
+                                                                                                       out_count))
     file_out = open(os.path.join(os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir))), "perfo.txt"), 'w')
     file_out.write(
-        "Total time taken to analyse %s in data is %s sec and generated %s combination match " % (input_count,
-                                                                                                  execution_time,
-                                                                                                  out_count))
+        "Total time taken to analyse %s input data is %s sec Vs bench mark %s sec and generated %s combination match "
+        % (input_count, execution_time, (0.045 * input_count), out_count))
     file_out.close()
     validate_perfo(execution_time, input_count)
 
