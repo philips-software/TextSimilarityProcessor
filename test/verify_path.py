@@ -2,7 +2,7 @@
 
 import os
 import unittest
-from test.test_resource import TestResource
+from test_resource import TestResource
 import pandas as pd
 
 
