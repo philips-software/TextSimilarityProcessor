@@ -1,8 +1,6 @@
 """ file used for installing the package"""
 import os
 import sys
-import glob
-import pip
 import subprocess
 
 
@@ -11,16 +9,16 @@ def get_version_sub_string():
     cwd = os.getcwd()
     proj_root = os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir)))
     os.chdir(proj_root)
-    p = subprocess.Popen("python3 setup.py --version", stdout=subprocess.PIPE)
+    proc = subprocess.Popen("python3 setup.py --version", stdout=subprocess.PIPE)
     os.chdir(cwd)
-    return p.communicate()[0].rstrip().decode("utf-8")
+    return proc.communicate()[0].rstrip().decode("utf-8")
 
 
 def find_installer():
     """ Function finds the installer full name based on the substring"""
     proj_dist = os.path.join(os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir))), "dist")
-    installerList = os.listdir(proj_dist)
-    return [item for item in installerList if "%s" % get_version_sub_string() in item]
+    installer_list = os.listdir(proj_dist)
+    return [item for item in installer_list if "%s" % get_version_sub_string() in item]
 
 
 def install(package):
@@ -40,4 +38,4 @@ def cmd_package():
 
 
 if __name__ == '__main__':
-    install_package()
+    cmd_package()

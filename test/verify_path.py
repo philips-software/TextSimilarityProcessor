@@ -2,8 +2,8 @@
 
 import os
 import unittest
-import pandas as pd
 from test.test_resource import TestResource
+import pandas as pd
 
 
 def verify_file_path():

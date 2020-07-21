@@ -6,9 +6,7 @@ import unittest
 import time
 import subprocess
 from test.test_resource import TestResource
-from test.verify_path import verify_file_path
 from test.verify_path import FunctionalTestVerification
-import pandas as pd
 from similarity_processor.similarity_io import SimilarityIO
 # from similarity_processor.similarity_ui import TextSimilarityWindow
 

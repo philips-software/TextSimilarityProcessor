@@ -1,10 +1,9 @@
 """ script to conduct sanity test"""
 import os
 import unittest
-from subprocess_calls import call_subprocess
 from test.test_resource import TestResource
-from test.verify_path import verify_file_path
 from test.verify_path import FunctionalTestVerification
+from subprocess_calls import call_subprocess
 
 
 class SanityTestVerification(unittest.TestCase):
