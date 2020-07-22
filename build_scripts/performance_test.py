@@ -20,15 +20,15 @@ def create_input():
     print("successfully created the input file")
 
 
-def validate_perfo(time_val, input_data):
+def validate_perfo(time_val, input_data, t_val):
     """ Function to validate the performance of tool"""
-    if not time_val < 0.045 * int(input_data):
+    if not time_val < t_val * int(input_data):
         print("The performance is degraded")
         sys.exit(1)
     print("performance test is COMPLETED & PASSED")
 
 
-def run_performance_test():
+def run_performance_test(time_perf):
     """ Function used to run the test to check how much time similarity tool takes to execute"""
     input_file = os.path.join(os.path.abspath(os.path.join(__file__, os.pardir)), "input_data.xlsx")
     input_count = get_last_line_file(input_file)
@@ -47,9 +47,9 @@ def run_performance_test():
     file_out = open(os.path.join(os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir))), "perfo.txt"), 'w')
     file_out.write(
         "Total time taken to analyse %s input data is %s sec Vs bench mark %s sec and generated %s combination match "
-        % (input_count, execution_time, (0.045 * input_count), out_count))
+        % (input_count, execution_time, (time_perf * input_count), out_count))
     file_out.close()
-    validate_perfo(execution_time, input_count)
+    validate_perfo(execution_time, input_count, time_perf)
 
 
 def get_last_line_file(file):
@@ -65,5 +65,15 @@ def get_last_line_file(file):
 
 
 if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("input argument is missing for the performance test. please provide input in seconds as a float value")
+        sys.exit(1)
+    try:
+        COMP_PERF = float(sys.argv[1])
+        print("Input is a float  number. Number = ", COMP_PERF)
+    except ValueError:
+        print("No.. input is not a number. It's a string")
+        sys.exit(1)
+    print("checking the tool performance ref: single comparison threshold is set to %s sec" % COMP_PERF)
     create_input()
-    run_performance_test()
+    run_performance_test(COMP_PERF)
