@@ -1,4 +1,5 @@
-""" This file holds the test resources for testing """
+"""Koninklijke Philips N.V., 2019 - 2020. All rights reserved.
+This file holds the test resources for testing """
 import os
 
 
@@ -20,21 +21,21 @@ class TestResource:
     merged_file_path = os.path.abspath(os.path.join(tst_resource_folder,
                                                     "Testcases_merged_steps.xlsx"))
     recommendation_file_path = os.path.abspath(os.path.join(tst_resource_folder,
-                                                            "Testcases_recomendation.xlsx"))
+                                                            "Testcases_recommendation.csv"))
     duplicate_id_file_path = os.path.abspath(os.path.join(tst_resource_folder,
                                                           "Testcases_Duplicate_ID.xlsx"))
 
     golden_merged_file_path = os.path.abspath(os.path.join(tst_resource_folder,
                                                            "golden_Testcases_merged_steps.xlsx"))
     golden_recommendation_file_path = os.path.abspath(
-        os.path.join(tst_resource_folder, "golden_Testcases_recomendation.xlsx"))
+        os.path.join(tst_resource_folder, "golden_Testcases_recommendation.csv"))
     golden_duplicate_id_file_path = os.path.abspath(os.path.join(
         tst_resource_folder, "golden_Testcases_Duplicate_ID.xlsx"))
 
     golden_new_merged_file_path = os.path.abspath(
         os.path.join(tst_resource_folder, "golden_new_Testcases_merged_steps.xlsx"))
     golden_new_recommendation_file_path = os.path.abspath(
-        os.path.join(tst_resource_folder, "golden_new_Testcases_recomendation.xlsx"))
+        os.path.join(tst_resource_folder, "golden_new_Testcases_recommendation.csv"))
 
     log_file_path = os.path.abspath(os.path.join(par_dir, "similarity_processor", "text_similarity.log"))
     empty_file_path = os.path.abspath(os.path.join(par_dir, "test_resource", "empty_testcase.xlsx"))
