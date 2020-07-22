@@ -1,4 +1,5 @@
-""" This file does the  test of the "Text similarity processor
+"""Koninklijke Philips N.V., 2019 - 2020. All rights reserved.
+This file does the  test of the "Text similarity processor
 from IO layer as well as command line """
 
 import os
@@ -26,8 +27,8 @@ class IoTestCase(unittest.TestCase):
         flag = False
         cos_io_obj = SimilarityIO(path, uniqid, colint, 0)
         cos_io_obj.orchestrate_similarity()
-        line = subprocess.check_output(['tail', log_loc, TestResource.log_file_path])
-        line = line.decode('UTF-8')
+        line = subprocess.check_output(["tail", log_loc, TestResource.log_file_path])
+        line = line.decode("UTF-8")
         if text_check in line:
             flag = True
         self.assertEqual(True, flag, "Validating %s log file"%str(msg))
@@ -36,23 +37,23 @@ class IoTestCase(unittest.TestCase):
         """ Function to test the input arguments """
         self.validate_input(os.path.abspath(os.path.join(
             TestResource.tst_resource_folder, "Testcases.xls")),
-                            TestResource.testcase_id, TestResource.teststeps_id, "-1", 'File path is invalid')
+                            TestResource.testcase_id, TestResource.teststeps_id, "-1", "File path is invalid")
 
         self.validate_input(TestResource.file_path,
                             10, TestResource.command_unique_id, "-3",
-                            'Either or both unique id and col of interest out of range')
+                            "Either or both unique id and col of interest out of range")
 
         self.validate_input(TestResource.file_path,
                             TestResource.command_unique_id, "1,7", "-3",
-                            'Either or both unique id and col of interest out of range')
+                            "Either or both unique id and col of interest out of range")
 
         self.validate_input(TestResource.file_path,
                             TestResource.command_unique_id, "test, x", "-3",
-                            'Input data is not an integer')
+                            "Input data is not an integer")
 
         self.validate_input(TestResource.file_path,
                             TestResource.command_unique_id, "1,2,3,4,5", "-3",
-                            'Either or both unique id and col of interest out of range')
+                            "Either or both unique id and col of interest out of range")
 
 
 if __name__ == '__main__':

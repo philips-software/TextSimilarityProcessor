@@ -1,4 +1,6 @@
+"""Koninklijke Philips N.V., 2019 - 2020. All rights reserved."""
 import setuptools
+from versiontag import get_version
 
 
 def get_description(file_name):
@@ -10,23 +12,21 @@ def get_description(file_name):
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
+    long_description = long_description.replace(
+        "[MAINTAINERS.md](MAINTAINERS.md)",
+        str(get_description("MAINTAINERS.md"))).replace(
+        "[INSTALL.md](INSTALL.md)", str(get_description("INSTALL.md"))).replace(
+        "[License.md](LICENSE.md)", str(get_description("LICENSE.md")))
 
 with open('requirements.txt') as f:
     required = f.read().splitlines()
-    if "[MAINTAINERS.md](MAINTAINERS.md)" in long_description:
-        long_description = long_description.replace("[MAINTAINERS.md](MAINTAINERS.md)",
-                                                    str(get_description("MAINTAINERS.md")))
-    if "[License.md](License.md)" in long_description:
-        long_description = long_description.replace("[License.md](License.md)", str(get_description("LICENSE.md")))
-    if "[INSTALL.md](INSTALL.md)" in long_description:
-        long_description = long_description.replace("[INSTALL.md](INSTALL.md)", str(get_description("INSTALL.md")))
 
 setuptools.setup(
     name="similarity_processor",
-    version="0.0.2",
+    version=get_version(pypi=True),
     author="Brijesh",
     author_email="brijesh.krishnank@philips.com",
-    description="Text Similarity Index Processor",
+    description="Text Similarity Processor",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/philips-software/TextSimilarityProcessor",

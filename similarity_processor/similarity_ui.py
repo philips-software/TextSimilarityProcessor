@@ -1,4 +1,5 @@
-""" This file holds the UI implementation for the Text similarity processing """
+"""Koninklijke Philips N.V., 2019 - 2020. All rights reserved.
+This file holds the UI implementation for the Text similarity processing """
 # noinspection PyCompatibility
 from tkinter import Tk
 from tkinter import IntVar, END
@@ -78,13 +79,13 @@ class TextSimilarityWindow:
                                              self.is_new_text.get(), self.__get_new_text())
             similarity_io_obj.orchestrate_similarity()
         except TypeError as error:
-            print('Error:', str(error)) # pragma: no mutate
+            print("Error:", str(error)) # pragma: no mutate
             LOG.error("Error:%s", str(error)) # pragma: no mutate
 
 
 if __name__ == '__main__':
     WINDOW = Tk()
     MY_WIN = TextSimilarityWindow(WINDOW)
-    WINDOW.title('Text Similarity Index Processor')
+    WINDOW.title("Text Similarity Index Processor")
     WINDOW.geometry("550x250+10+10")
     WINDOW.mainloop()

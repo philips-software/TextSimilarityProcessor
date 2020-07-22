@@ -1,4 +1,5 @@
-""" File provide command line interface for the text similarity index processor """
+"""Koninklijke Philips N.V., 2019 - 2020. All rights reserved.
+File provide command line interface for the text similarity index processor """
 import os
 import sys
 import argparse
@@ -15,20 +16,20 @@ def create_parser(args):
     cos_parser = argparse.ArgumentParser(description='Text Similarity Index Processor')
 
     # Add the arguments
-    cos_parser.add_argument('--path',
-                            metavar='--p',
+    cos_parser.add_argument("--path",
+                            metavar="--p",
                             type=str,
-                            help='the Input file path')
+                            help="the Input file path")
 
-    cos_parser.add_argument('--uniqid',
-                            metavar='--u',
+    cos_parser.add_argument("--uniqid",
+                            metavar="--u",
                             type=str,
-                            help='unique id index(column) of the input file')
+                            help="unique id index(column) of the input file")
 
-    cos_parser.add_argument('--colint',
-                            metavar='--c',
+    cos_parser.add_argument("--colint",
+                            metavar="--c",
                             type=str,
-                            help='the col of interest')
+                            help="the col of interest")
     # ...Create your parser as you like...
     return cos_parser.parse_args(args)
 

@@ -1,11 +1,12 @@
-""" This file process the IO for the Text similarity index processor """
+"""Koninklijke Philips N.V., 2019 - 2020. All rights reserved.
+This file process the IO for the Text similarity index processor """
 import math
 import os
 import datetime
 import pandas as pd
 import numpy as np
-from sklearn.feature_extraction.text import CountVectorizer # pylint: disable=E0401
-from sklearn.metrics.pairwise import cosine_similarity # pylint: disable=E0401
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
 import similarity_processor.similarity_logging as cl
 
 LOG = cl.get_logger()
@@ -71,12 +72,12 @@ class SimilarityIO:
             if item:
                 __du_list.append(self.data_frame[self.uniq_header][key])
         du_list = list(map(lambda x: 0 if is_nan(x) else x, __du_list))
-        __data = {'Duplicate ID': [nonzero for nonzero in du_list if nonzero != 0]}
+        __data = {"Duplicate ID": [nonzero for nonzero in du_list if nonzero != 0]}
         # Create DataFrame and write
         self.__write_xlsx(pd.DataFrame(__data), "Duplicate_ID")
 
     def __get_ip_file_type(self):
-        file_type = self.file_path.split('.')[-1]
+        file_type = self.file_path.split(".")[-1]
         return file_type.upper()
 
     def __read_to_panda_df(self):
@@ -115,9 +116,9 @@ class SimilarityIO:
         """ Merge the text so as to form two column one with unique ID , other with merged
         content in steps """
         self.data_frame = (self.data_frame.set_index([self.uniq_header])
-                           .apply(lambda x: ' '.join(x.dropna()), axis=1)
-                           .reset_index(name='Steps'))
-        self.data_frame = self.data_frame.groupby(self.uniq_header)['Steps'] \
+                           .apply(lambda x: " ".join(x.dropna()), axis=1)
+                           .reset_index(name="Steps"))
+        self.data_frame = self.data_frame.groupby(self.uniq_header)["Steps"] \
             .apply(' '.join).reset_index()
 
     def __create_mergrd_file(self):
@@ -128,7 +129,7 @@ class SimilarityIO:
         """ Function which write the dataframe to xlsx """
         file_path = os.path.join(self.__get_file_path(), self.__get_file_name() + "_" + name)
         # Github open ticket for the abstract method
-        writer = pd.ExcelWriter('%s.xlsx' % file_path, engine='xlsxwriter')
+        writer = pd.ExcelWriter("%s.xlsx" % file_path, engine="xlsxwriter")
         data_f.to_excel(writer, sheet_name=name)
         writer.save()
 
@@ -140,21 +141,21 @@ class SimilarityIO:
     def __new_text_df(self):
         """ Function which is created to form the new dataframe to include new text if
         entered in UI """
-        __new_df = pd.DataFrame({self.uniq_header: ["New/ID_TBD"], 'Steps': [self.new_text]})
+        __new_df = pd.DataFrame({self.uniq_header: ["New/ID_TBD"], "Steps": [self.new_text]})
         self.data_frame = __new_df.append(self.data_frame, ignore_index=True)
 
     def __process_cos_match(self):
         """ Function which process the data frame for matching/finding similarity index """
         count_vect = CountVectorizer()
-        word_count_vector = count_vect.fit_transform(self.data_frame['Steps'].to_numpy())
+        word_count_vector = count_vect.fit_transform(self.data_frame["Steps"].to_numpy())
         c_sim = 100 * (cosine_similarity(word_count_vector))
         self.data_frame["Potential Match"] = self.data_frame[self.uniq_header]
-        dataframe = pd.DataFrame(c_sim, columns=self.data_frame['Potential Match'],
+        dataframe = pd.DataFrame(c_sim, columns=self.data_frame["Potential Match"],
                                  index=self.data_frame[self.uniq_header])
         row, col = dataframe.shape
         dataframe[:] = np.where(np.arange(row)[:, None] >= np.arange(col), np.nan, dataframe)
         report_df = dataframe.stack().reset_index()
-        report_df.columns = ['UNIQ ID', 'POTENTIAL MATCH', 'SIMILARITY']
+        report_df.columns = ["UNIQ ID", "POTENTIAL MATCH", "SIMILARITY"]
         self.__write_csv(report_df, "recommendation.csv")
 
     def __validate_input(self):
