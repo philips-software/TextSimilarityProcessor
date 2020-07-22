@@ -11,7 +11,7 @@ on:
   create:
     branches: [ master ]
 env:
-  NODE_VERSION: '10.13.0'                #  set this to the node version to use
+  NODE_VERSION: '10.13.0'                # set this to the node version to use
 jobs:
   build:
     name: Conduct "Static analysis, Test & Coverage, Spell check, Mutation testing " for 🐍 code
