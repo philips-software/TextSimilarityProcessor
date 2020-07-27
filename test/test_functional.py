@@ -3,7 +3,6 @@ This file does the functional test of the "Text similarity processor
 from IO layer as well as UI later """
 import os
 import unittest
-import time
 import subprocess
 from test.test_resource import TestResource
 from test.verify_path import FunctionalTestVerification

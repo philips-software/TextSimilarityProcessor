@@ -67,7 +67,7 @@ class ParserAndLogTest(unittest.TestCase):
         cmd = 'python %s --h'%script
         output = open(os.path.join(TestResource.tst_resource_folder, "cmd_help.txt"), "r")
         tmpfile = open(os.path.join(TestResource.tst_resource_folder, "tmp_help.txt"), "w")
-        process = subprocess.Popen(cmd, stdout=tmpfile, shell=True).communicate()[0]
+        process = subprocess.Popen(cmd, stdout=tmpfile, shell=True).communicate()[0] # pylint: disable=W0612
         tmpfile.close()
         output.close()
         self.assertEqual(True, (filecmp.cmp(os.path.join(TestResource.tst_resource_folder, "cmd_help.txt"),
