@@ -43,6 +43,23 @@ class ParserAndLogTest(unittest.TestCase):
         parsed = check_create_parser("--c", "colint_test")
         self.assertEqual(parsed.colint, "colint_test")
 
+    def test_numrowcount(self):
+        """ Function to test the number of row count in the command line
+                correct and incorrect """
+        with self.assertRaises(SystemExit):
+            check_create_parser("-n", '1')
+        parsed = check_create_parser("--n", '1')
+        self.assertEqual(parsed.numrowcount, 1)
+
+    def test_numrowcount_default(self):
+        """ Function to test the default number of row count in the command line
+                correct and incorrect """
+        with self.assertRaises(SystemExit):
+            check_create_parser("-c", "colint_test")
+        parsed = check_create_parser("--c", "colint_test")
+        self.assertEqual(parsed.colint, "colint_test")
+        self.assertEqual(parsed.numrowcount, 10)
+
     def test_from_command_help(self):
         """Test function to test the command line help option"""
         script = os.path.abspath(os.path.join(TestResource.par_dir,
@@ -51,7 +68,6 @@ class ParserAndLogTest(unittest.TestCase):
         output = open(os.path.join(TestResource.tst_resource_folder, "cmd_help.txt"), "r")
         tmpfile = open(os.path.join(TestResource.tst_resource_folder, "tmp_help.txt"), "w")
         process = subprocess.Popen(cmd, stdout=tmpfile, shell=True).communicate()[0]
-        print(process)
         tmpfile.close()
         output.close()
         self.assertEqual(True, (filecmp.cmp(os.path.join(TestResource.tst_resource_folder, "cmd_help.txt"),

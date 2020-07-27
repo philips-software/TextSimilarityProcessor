@@ -10,9 +10,10 @@ class TestResource:
     testcase_id = 0
     teststeps_id = str("1,2")
     var = 0
-    get_new_text = "abcdefg"
+    get_new_text = "this should not get called"
     command_unique_id = "0"
     command_colint = "1,2"
+    num_row = "8"
 
     tst_resource_folder = os.path.join(os.path.dirname(__file__), os.pardir, "test_resource")
     par_dir = os.path.join(os.path.dirname(__file__), os.pardir)
@@ -20,6 +21,8 @@ class TestResource:
     file_path = os.path.abspath(os.path.join(tst_resource_folder, "Testcases.xlsx"))
     merged_file_path = os.path.abspath(os.path.join(tst_resource_folder,
                                                     "Testcases_merged_steps.xlsx"))
+    brief_report_path = os.path.abspath(os.path.join(tst_resource_folder,
+                                                     "Testcases_brief_report.html"))
     recommendation_file_path = os.path.abspath(os.path.join(tst_resource_folder,
                                                             "Testcases_recommendation.csv"))
     duplicate_id_file_path = os.path.abspath(os.path.join(tst_resource_folder,
@@ -27,6 +30,8 @@ class TestResource:
 
     golden_merged_file_path = os.path.abspath(os.path.join(tst_resource_folder,
                                                            "golden_Testcases_merged_steps.xlsx"))
+    golden_brief_report_path = os.path.abspath(os.path.join(tst_resource_folder,
+                                                            "golden_Testcases_brief_report.html"))
     golden_recommendation_file_path = os.path.abspath(
         os.path.join(tst_resource_folder, "golden_Testcases_recommendation.csv"))
     golden_duplicate_id_file_path = os.path.abspath(os.path.join(

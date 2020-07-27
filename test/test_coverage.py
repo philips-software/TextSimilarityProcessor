@@ -25,7 +25,7 @@ class IoTestCase(unittest.TestCase):
         """Function test the incorrect path input file"""
         text_check = msg
         flag = False
-        cos_io_obj = SimilarityIO(path, uniqid, colint, 0)
+        cos_io_obj = SimilarityIO(path, uniqid, colint, None, 0)
         cos_io_obj.orchestrate_similarity()
         line = subprocess.check_output(["tail", log_loc, TestResource.log_file_path])
         line = line.decode("UTF-8")

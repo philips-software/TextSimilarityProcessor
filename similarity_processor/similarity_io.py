@@ -25,19 +25,21 @@ class SimilarityIO:
     User input file is fetched here, also intermediate file as well as
     the final recommendation creating are tasks for this class """
 
-    def __init__(self, file_path, uniq_id, col_int, is_new_text, new_text=None):
+    def __init__(self, file_path, uniq_id, col_int, num_html_row, is_new_text, new_text=None):
         """constructor for Similarity input output processor, which initializes the the input variables needed IO
         processing """
-        LOG.info("\nSimilarity_UI \nValues passed:\n") # pragma: no mutate
+        LOG.info("\nSimilarity_UI \nValues passed:\n")  # pragma: no mutate
         self.file_path = file_path
-        LOG.info("Path:%s", str(self.file_path)) # pragma: no mutate
+        LOG.info("Path:%s", str(self.file_path))  # pragma: no mutate
         self.uniq_id = uniq_id
-        LOG.info("\nUnique ID Column:%s", str(self.uniq_id)) # pragma: no mutate
+        LOG.info("\nUnique ID Column:%s", str(self.uniq_id))  # pragma: no mutate
         self.col_int = col_int
-        LOG.info("\nColumns of Interest:%s", str(self.col_int)) # pragma: no mutate
+        LOG.info("\nColumns of Interest:%s", str(self.col_int))  # pragma: no mutate
+        self.num_html_row = num_html_row
+        LOG.info("\nnumber of html row:%s", str(self.num_html_row))  # pragma: no mutate
         self.is_new_text = is_new_text
         self.new_text = new_text
-        LOG.info("\nNew_text:%s", str(self.new_text)) # pragma: no mutate
+        LOG.info("\nNew_text:%s", str(self.new_text))  # pragma: no mutate
         self.data_frame = None
         self.uniq_header = None
 
@@ -64,7 +66,7 @@ class SimilarityIO:
     def __get_duplicate_id(self):
         """ Function which identifies if any duplicate ID present in the input file """
         # List the duplicate ID
-        __duplicated_list = list(self.data_frame.duplicated())
+        __duplicated_list = list(self.data_frame[self.uniq_header].duplicated())
         __du_list = []
         __data = [[]]
         # Remove the 'NaN' in case of empty cell and filter only IDs
@@ -83,7 +85,7 @@ class SimilarityIO:
     def __read_to_panda_df(self):
         """ Function which read the input data/xlsx to a pandas Data frame """
         if not os.path.exists(self.file_path):
-            LOG.error("\nFile path is invalid") # pragma: no mutate
+            LOG.error("\nFile path is invalid")  # pragma: no mutate
             return False
         function_dict = {
             "XLSX": lambda x: pd.read_excel(self.file_path),
@@ -93,7 +95,7 @@ class SimilarityIO:
         self.data_frame = function_dict[self.__get_ip_file_type()](self.file_path)
         if self.data_frame.empty:
             LOG.error("\nInput data is incorrect/ file is invalid/"
-                      "It has more than one sheet") # pragma: no mutate
+                      "It has more than one sheet")  # pragma: no mutate
             return False
         return True
 
@@ -144,6 +146,20 @@ class SimilarityIO:
         __new_df = pd.DataFrame({self.uniq_header: ["New/ID_TBD"], "Steps": [self.new_text]})
         self.data_frame = __new_df.append(self.data_frame, ignore_index=True)
 
+    def __report_brief_html(self, data_similarity):
+        """ Function which report the highest similarity match in html output based on input argument (defaulted to
+        10 rows #no """
+        brief_report = data_similarity.sort_values('SIMILARITY', ascending=False).iloc[:int(self.num_html_row)]
+        self.data_frame.rename(columns={self.uniq_header: 'UNIQ ID', "Steps": "Steps"}, inplace=True)
+        temp_data_frame1 = (pd.merge(self.data_frame.drop(['Potential Match'], axis=1), brief_report, on=['UNIQ ID'],
+                                     how='inner'))
+        self.data_frame.rename(columns={'UNIQ ID': 'POTENTIAL MATCH', "Steps": "Steps"}, inplace=True)
+        temp_data_frame2 = ((pd.merge(self.data_frame.drop(['Potential Match'], axis=1), temp_data_frame1,
+                                      on=['POTENTIAL MATCH'],
+                                      how='inner')))
+        file_path = os.path.join(self.__get_file_path(), self.__get_file_name() + "_" + "brief_report.html")
+        temp_data_frame2.to_html(file_path)
+
     def __process_cos_match(self):
         """ Function which process the data frame for matching/finding similarity index """
         count_vect = CountVectorizer()
@@ -157,6 +173,7 @@ class SimilarityIO:
         report_df = dataframe.stack().reset_index()
         report_df.columns = ["UNIQ ID", "POTENTIAL MATCH", "SIMILARITY"]
         self.__write_csv(report_df, "recommendation.csv")
+        self.__report_brief_html(report_df)
 
     def __validate_input(self):
         """ Function to validate the input parameters """
@@ -170,10 +187,10 @@ class SimilarityIO:
             list_check = list(map(lambda item: True if item <= columns - 1 else False, test_list))
             if False in list_check:
                 __ret_val = False
-                LOG.error("\nEither or both unique id and col of interest out of range") # pragma: no mutate
+                LOG.error("\nEither or both unique id and col of interest out of range")  # pragma: no mutate
             return __ret_val
         except ValueError:
-            LOG.error("\nInput data is not an integer") # pragma: no mutate
+            LOG.error("\nInput data is not an integer")  # pragma: no mutate
             return False
 
     def orchestrate_similarity(self):
@@ -190,4 +207,4 @@ class SimilarityIO:
             self.__create_mergrd_file()
             self.__process_cos_match()
         end = datetime.datetime.now().timestamp()
-        print("Execution time %s" % (end - start)) # pragma: no mutate
+        print("Execution time %s" % (end - start))  # pragma: no mutate
