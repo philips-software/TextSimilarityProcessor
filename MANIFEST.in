@@ -1,2 +1,9 @@
 prune test*
 prune tests*
+include requirements.txt
+include LICENSE.md
+include MAINTAINERS.md
+include README.md
+include CHANGELOG.md
+include INSTALL.md
+include similarity_processor\df_style.css

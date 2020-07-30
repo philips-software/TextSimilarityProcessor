@@ -31,8 +31,10 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/philips-software/TextSimilarityProcessor",
-    packages=setuptools.find_packages(include=['similarity_processor', 'spell_check'],
+    packages=setuptools.find_packages(include=['similarity_processor'],
                                       exclude=['test', '*.test', '*.test.*']),
+    package_data={'': [r'similarity_processor\df_style.css']},
+    include_package_data=True,
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",

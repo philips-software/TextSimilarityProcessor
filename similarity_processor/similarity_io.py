@@ -3,6 +3,7 @@ This file process the IO for the Text similarity index processor """
 import math
 import os
 import datetime
+import shutil
 import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
@@ -25,7 +26,7 @@ class SimilarityIO:
     User input file is fetched here, also intermediate file as well as
     the final recommendation creating are tasks for this class """
 
-    def __init__(self, file_path, uniq_id, col_int, num_html_row, is_new_text, new_text=None):
+    def __init__(self, file_path, uniq_id, col_int, num_html_row=10, is_new_text=False, new_text=None):
         """constructor for Similarity input output processor, which initializes the the input variables needed IO
         processing """
         LOG.info("\nSimilarity_UI \nValues passed:\n")  # pragma: no mutate
@@ -46,13 +47,17 @@ class SimilarityIO:
     def __get_file_path(self):
         """ Function used for getting the file path where the results can be stored /
         from where input is provided"""
-        return str(os.path.dirname(self.file_path))
+        if os.path.isfile(self.file_path):
+            return str(os.path.dirname(self.file_path))
+        return self.file_path
 
     def __get_file_name(self):
         """ Function used for getting the input file name which can be further used for naming
         the result """
-        file_path = self.file_path.split("/")
-        return os.path.splitext(file_path[-1])[0]
+        if os.path.isfile(self.file_path):
+            file_path = self.file_path.split("/")
+            return os.path.splitext(file_path[-1])[0]
+        return "similarity"
 
     def __get_header(self):
         """ Function to fetch the header from the input file read in the dataframe """
@@ -114,7 +119,7 @@ class SimilarityIO:
         self.data_frame = self.data_frame[self.__get_needed_df_header(
             sheet_headers[int(self.uniq_id)], sheet_headers)]
 
-    def __create_merged_df(self):
+    def create_merged_df(self):
         """ Merge the text so as to form two column one with unique ID , other with merged
         content in steps """
         self.data_frame = (self.data_frame.set_index([self.uniq_header])
@@ -146,21 +151,69 @@ class SimilarityIO:
         __new_df = pd.DataFrame({self.uniq_header: ["New/ID_TBD"], "Steps": [self.new_text]})
         self.data_frame = __new_df.append(self.data_frame, ignore_index=True)
 
-    def __report_brief_html(self, data_similarity):
+    @staticmethod
+    def set_column_width(df_column):
+        """
+        Function to split the long line in the steps column
+            df_column: data frame column value
+
+        Returns: data frame column value after splitting
+
+        """
+        specifier_column = []
+        spe_data = ""
+        line_length = 200
+        for i in range(len(df_column)):
+            for line in str(df_column.iat[i, 0]).splitlines():
+                if len(line) > line_length:
+                    spe_data = spe_data + "\r\n".join(line[i:i + line_length] for i in range(0, len(line), line_length))
+                else:
+                    spe_data = spe_data + line + "\r\n"
+            specifier_column.append(spe_data)
+            spe_data = ""
+        return specifier_column
+
+    def __write_html(self, html_data_frame):
+        """ Function which is used to report out the top similarity match defaulted to 10 rows """
+        html_file_path = os.path.join(self.__get_file_path(), self.__get_file_name() + "_" + "brief_report.html")
+        html_data_frame['UNIQ ID'] = html_data_frame['UNIQ ID'].str.wrap(80)
+        html_data_frame['POTENTIAL MATCH'] = html_data_frame['POTENTIAL MATCH'].str.wrap(80)
+        html_data_frame.sort_values('SIMILARITY', ascending=False, inplace=True)
+        pd.set_option('colheader_justify', 'center')
+        html_string = '''
+        <html>
+          <head><title>HTML Pandas Dataframe with CSS</title></head>
+          <link rel="stylesheet" type="text/css" href="df_style.css"/>
+          <h1 style="font-size:50px;">Brief Report on Similarity Analysis</h1>
+          <h2 style="font-size:20px;font-style:italic;">Note: This is a brief report. For details 
+          please refer 'csv/xlsx' in same folder</h2>
+          <body>
+            {table}
+          </body>
+        </html>
+        '''
+        with open(html_file_path, 'w') as html_file:
+
+            html_file.write(html_string.format(table=html_data_frame.to_html(classes='mystyle')).
+                            replace(r'\r\n', "<br>").replace(r'\n', "<br>").replace(r'\r', "<br>"))
+        shutil.copy(os.path.join(os.path.dirname(__file__), "df_style.css"), os.path.join(self.__get_file_path(),
+                                                                                          "df_style.css"))
+
+    def report_brief_html(self, data_similarity):
         """ Function which report the highest similarity match in html output based on input argument (defaulted to
         10 rows #no """
         brief_report = data_similarity.sort_values('SIMILARITY', ascending=False).iloc[:int(self.num_html_row)]
-        self.data_frame.rename(columns={self.uniq_header: 'UNIQ ID', "Steps": "Steps"}, inplace=True)
-        temp_data_frame1 = (pd.merge(self.data_frame.drop(['Potential Match'], axis=1), brief_report, on=['UNIQ ID'],
+        html_df = self.data_frame.rename(columns={self.uniq_header: 'UNIQ ID', "Steps": "Steps"})
+        html_df['Steps'] = self.set_column_width(html_df[['Steps']])
+        temp_data_frame1 = (pd.merge(html_df.drop(['Potential Match'], axis=1), brief_report, on=['UNIQ ID'],
                                      how='inner'))
-        self.data_frame.rename(columns={'UNIQ ID': 'POTENTIAL MATCH', "Steps": "Steps"}, inplace=True)
-        temp_data_frame2 = ((pd.merge(self.data_frame.drop(['Potential Match'], axis=1), temp_data_frame1,
+        html_df.rename(columns={'UNIQ ID': 'POTENTIAL MATCH', "Steps": "Steps"}, inplace=True)
+        temp_data_frame2 = ((pd.merge(html_df.drop(['Potential Match'], axis=1), temp_data_frame1,
                                       on=['POTENTIAL MATCH'],
                                       how='inner')))
-        file_path = os.path.join(self.__get_file_path(), self.__get_file_name() + "_" + "brief_report.html")
-        temp_data_frame2.to_html(file_path)
+        self.__write_html(temp_data_frame2)
 
-    def __process_cos_match(self):
+    def process_cos_match(self):
         """ Function which process the data frame for matching/finding similarity index """
         count_vect = CountVectorizer()
         word_count_vector = count_vect.fit_transform(self.data_frame["Steps"].to_numpy())
@@ -172,8 +225,7 @@ class SimilarityIO:
         dataframe[:] = np.where(np.arange(row)[:, None] >= np.arange(col), np.nan, dataframe)
         report_df = dataframe.stack().reset_index()
         report_df.columns = ["UNIQ ID", "POTENTIAL MATCH", "SIMILARITY"]
-        self.__write_csv(report_df, "recommendation.csv")
-        self.__report_brief_html(report_df)
+        return report_df
 
     def __validate_input(self):
         """ Function to validate the input parameters """
@@ -201,10 +253,12 @@ class SimilarityIO:
             self.__set_uniq_header()
             self.__get_duplicate_id()
             self.__refine_df()
-            self.__create_merged_df()
+            self.create_merged_df()
             if self.is_new_text == 1:
                 self.__new_text_df()
             self.__create_mergrd_file()
-            self.__process_cos_match()
+            report_df = self.process_cos_match()
+            self.__write_csv(report_df, "recommendation.csv")
+            self.report_brief_html(report_df)
         end = datetime.datetime.now().timestamp()
         print("Execution time %s" % (end - start))  # pragma: no mutate

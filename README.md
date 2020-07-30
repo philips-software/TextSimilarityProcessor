@@ -58,7 +58,7 @@ pip install similarity-processor
 ### Commandline
 
 ```sh
->>>python -m similarity_processor.similarity_cmd --p "TestBank.xlsx" --u 0 --c "1,2,3" --n 8
+>>>python -m similarity_processor.similarity_cmd --p "path\to\TestBank.xlsx" --u 0 --c "1,2,3" --n 8
 ```
 
 - Help option can be found at,  
@@ -71,17 +71,40 @@ pip install similarity-processor
 
 ```sh
 >>> from similarity_processor.similarity_io import SimilarityIO
->>> similarity_io_obj = SimilarityIO("TestBank.xlsx", 0, "1,2,3", 0, None)
+>>> similarity_io_obj = SimilarityIO("path\to\TestBank.xlsx", 0, "1,2,3", 11, 0, None)
 >>> similarity_io_obj.orchestrate_similarity()
 ```
 
-Arguments:Path to the input file, Unique id value column id in xlsx, Interested
- columns in xlsx, Are you checking a new text against a existing text bank ?
- If yes: new text  
-  
+Arguments:
+
+1. Path to the input file  
+2. Unique id value column id in xlsx  
+3. Interested columns in xlsx  
+4. html html report rows default is 10  
+5. Are you checking a new text against a existing text bank ?  
+6. If yes: new text  
+
+```sh
+import pandas as pd
+from similarity_processor.similarity_io import SimilarityIO
+
+demo_df = pd.read_excel(r"input\xlsx\sheet\name")  # You could read from any input source
+
+similarity_io_obj = SimilarityIO(None, None, None)  # (None, None, None, 200) =>200 = The brief html report rows
+ default is 10  
+similarity_io_obj.file_path = r"path\to\report\folder" #when used in this format, else input file path to read data
+similarity_io_obj.data_frame = demo_df # input data frame
+similarity_io_obj.uniq_header = "Uniq ID"  # Unique header of the input data frame (string)
+similarity_io_obj.create_merged_df()
+processed_similarity = similarity_io_obj.process_cos_match()
+similarity_io_obj.report_brief_html(processed_similarity)
+processed_similarity.to_csv(r"path\to\report\folder\report.csv", header=True)
+```
+
 ### Output
   
-- Output will be available in same folder as input file  
+- Output will be available in same folder as input file or  `file_path`
+ specified  
 
 - If any duplicate ids in the unique id file with name string containing
  'duplicate id'  
