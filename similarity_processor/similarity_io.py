@@ -176,8 +176,8 @@ class SimilarityIO:
     def __write_html(self, html_data_frame):
         """ Function which is used to report out the top similarity match defaulted to 10 rows """
         html_file_path = os.path.join(self.__get_file_path(), self.__get_file_name() + "_" + "brief_report.html")
-        html_data_frame['UNIQ ID'] = html_data_frame['UNIQ ID'].str.wrap(80)
-        html_data_frame['POTENTIAL MATCH'] = html_data_frame['POTENTIAL MATCH'].str.wrap(80)
+        html_data_frame['UNIQ ID'] = html_data_frame['UNIQ ID'].apply(str).str.wrap(80)
+        html_data_frame['POTENTIAL MATCH'] = html_data_frame['POTENTIAL MATCH'].apply(str).str.wrap(80)
         html_data_frame.sort_values('SIMILARITY', ascending=False, inplace=True)
         pd.set_option('colheader_justify', 'center')
         html_string = '''
