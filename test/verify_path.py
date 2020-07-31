@@ -35,8 +35,12 @@ class FunctionalTestVerification(unittest.TestCase):
                 __data_recomend = pd.read_csv(TestResource.golden_recommendation_file_path)
 
             act_df_recomend = pd.read_csv(TestResource.recommendation_file_path)
+            act_html_report = pd.read_html(TestResource.brief_report_path)
+            ref_html_report = pd.read_html(TestResource.golden_brief_report_path)
             act_df_merged = pd.read_excel(TestResource.merged_file_path)
             act_df_duplicated = pd.read_excel(TestResource.duplicate_id_file_path)
+            self.assertEqual(act_html_report[0].replace(r'\\r', '', regex=True).values.tolist(),
+                             ref_html_report[0].replace(r'\\r', '', regex=True).values.tolist())
             self.assertEqual(True, __data_recomend["SIMILARITY"].equals(act_df_recomend["SIMILARITY"]),
                              "Actual and recommended Similarity Index data matches")
             self.assertEqual(True, __data_recomend["UNIQ ID"].equals(

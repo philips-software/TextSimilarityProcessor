@@ -26,9 +26,19 @@ def install_npm_packages():
         call_subprocess("sudo npm install -g jscpd@3.2.1")
         call_subprocess("sudo npm i -g yaml-lint@1.2.4")
         call_subprocess("sudo npm i -g markdownlint-cli@0.23.1")
-        print("Stage Install jscpd, markdownlint & ymllint -- COMPLETED & PASSED --")
+        call_subprocess("sudo npm i -g stylelint@13.6.1")
+        call_subprocess("sudo npm i -g stylelint-config-standard@20.0.0")
+        print("Stage Install jscpd, markdownlint, stylelint & ymllint -- COMPLETED & PASSED --")
     else:
-        print("Please install and configure jscpd, markdownlint & ymllint")
+        print("Please install and configure jscpd, stylelint, markdownlint & ymllint")
+
+
+def check_stylelint():
+    """
+    function check the repo for any python linting errors on css
+    """
+    call_subprocess("npx stylelint similarity_processor/*.css")
+    print("Stage linting CSS (stylelint)- -- COMPLETED & PASSED  --")
 
 
 def check_lint():
@@ -37,7 +47,6 @@ def check_lint():
     """
     call_subprocess("python3 -m pylint similarity_processor/ test/ build_scripts/ ")
     print("Stage linting -- COMPLETED & PASSED  --")
-
 
 def check_yml_linting():
     """
@@ -51,9 +60,8 @@ def check_md_linting():
     """
     function check the repo for any yml linting errors
     """
-    print("----TODO----- Markdown linting")
-    # call_subprocess("markdownlint *.md ")
-    # print("Stage linting md files -- COMPLETED & PASSED  --")
+    call_subprocess("markdownlint *.md ")
+    print("Stage linting md files -- COMPLETED & PASSED  --")
 
 
 def check_code_duplication():
@@ -116,6 +124,7 @@ if __name__ == "__main__":
     install_aspell()
     install_npm_packages()
     check_lint()
+    check_stylelint()
     check_yml_linting()
     check_md_linting()
     check_code_duplication()

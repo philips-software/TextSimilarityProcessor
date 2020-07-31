@@ -30,6 +30,12 @@ def create_parser(args):
                             metavar="--c",
                             type=str,
                             help="the col of interest")
+
+    cos_parser.add_argument("--numrowcount",
+                            metavar="--n",
+                            default=10,
+                            type=int,
+                            help="the number of rows for html brief report")
     # ...Create your parser as you like...
     return cos_parser.parse_args(args)
 
@@ -38,5 +44,5 @@ if __name__ == '__main__':
     # Execute the parse_args() method
     ARGS = create_parser(sys.argv[1:])
     # Process the similarity with inputs provided
-    SIM_IO_OBJ = SimilarityIO(ARGS.path, ARGS.uniqid, ARGS.colint, None)
+    SIM_IO_OBJ = SimilarityIO(ARGS.path, ARGS.uniqid, ARGS.colint, ARGS.numrowcount, None)
     SIM_IO_OBJ.orchestrate_similarity()

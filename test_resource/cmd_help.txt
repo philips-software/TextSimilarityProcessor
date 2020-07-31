@@ -1,9 +1,11 @@
 usage: similarity_cmd.py [-h] [--path --p] [--uniqid --u] [--colint --c]
+                         [--numrowcount --n]
 
 Text Similarity Index Processor
 
 optional arguments:
-  -h, --help    show this help message and exit
-  --path --p    the Input file path
-  --uniqid --u  unique id index(column) of the input file
-  --colint --c  the col of interest
+  -h, --help         show this help message and exit
+  --path --p         the Input file path
+  --uniqid --u       unique id index(column) of the input file
+  --colint --c       the col of interest
+  --numrowcount --n  the number of rows for html brief report

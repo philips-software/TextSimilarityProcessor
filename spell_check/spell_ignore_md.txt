@@ -65,3 +65,6 @@ pyspelling
 scikit
 workflows
 MERCHANTABILITY
+Uniq
+df
+uniq
