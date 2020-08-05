@@ -86,6 +86,6 @@ class TextSimilarityWindow:
 if __name__ == '__main__':
     WINDOW = Tk()
     MY_WIN = TextSimilarityWindow(WINDOW)
-    WINDOW.title("Text Similarity Index Processor")
+    WINDOW.title("Text Similarity")
     WINDOW.geometry("550x250+10+10")
     WINDOW.mainloop()
