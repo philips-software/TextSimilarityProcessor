@@ -76,7 +76,7 @@ class TextSimilarityWindow:
         try:
             similarity_io_obj = SimilarityIO(self.path_t.get(),
                                              self.uniq_id_t.get(), self.steps_t.get(),
-                                             self.is_new_text.get(), self.__get_new_text())
+                                             10, self.is_new_text.get(), self.__get_new_text())
             similarity_io_obj.orchestrate_similarity()
         except TypeError as error:
             print("Error:", str(error)) # pragma: no mutate

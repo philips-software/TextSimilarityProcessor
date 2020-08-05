@@ -84,6 +84,7 @@ class SimilarityIO:
         self.__write_xlsx(pd.DataFrame(__data), "Duplicate_ID")
 
     def __get_ip_file_type(self):
+        """ Function to return the file extension type"""
         file_type = self.file_path.split(".")[-1]
         return file_type.upper()
 
@@ -203,20 +204,24 @@ class SimilarityIO:
         """ Function which report the highest similarity match in html output based on input argument (defaulted to
         10 rows #no """
         brief_report = data_similarity.sort_values('SIMILARITY', ascending=False).iloc[:int(self.num_html_row)]
-        html_df = self.data_frame.rename(columns={self.uniq_header: 'UNIQ ID', "Steps": "Steps"})
-        html_df['Steps'] = self.set_column_width(html_df[['Steps']])
-        temp_data_frame1 = (pd.merge(html_df.drop(['Potential Match'], axis=1), brief_report, on=['UNIQ ID'],
-                                     how='inner'))
-        html_df.rename(columns={'UNIQ ID': 'POTENTIAL MATCH', "Steps": "Steps"}, inplace=True)
-        temp_data_frame2 = ((pd.merge(html_df.drop(['Potential Match'], axis=1), temp_data_frame1,
-                                      on=['POTENTIAL MATCH'],
-                                      how='inner')))
-        self.__write_html(temp_data_frame2)
+        if not brief_report.empty:
+            html_df = self.data_frame.rename(columns={self.uniq_header: 'UNIQ ID', "Steps": "Steps"})
+            html_df['Steps'] = self.set_column_width(html_df[['Steps']])
+            temp_data_frame1 = (pd.merge(html_df.drop(['Potential Match'], axis=1), brief_report, on=['UNIQ ID'],
+                                         how='inner'))
+            html_df.rename(columns={'UNIQ ID': 'POTENTIAL MATCH', "Steps": "Steps"}, inplace=True)
+            temp_data_frame2 = ((pd.merge(html_df.drop(['Potential Match'], axis=1), temp_data_frame1,
+                                          on=['POTENTIAL MATCH'],
+                                          how='inner')))
+            self.__write_html(temp_data_frame2)
+        else:
+            LOG.error("\nNothing to write to html file")  # pragma: no mutate
+            print("\nNothing to write to html file")  # pragma: no mutate
 
     def process_cos_match(self):
         """ Function which process the data frame for matching/finding similarity index """
         count_vect = CountVectorizer()
-        word_count_vector = count_vect.fit_transform(self.data_frame["Steps"].to_numpy())
+        word_count_vector = count_vect.fit_transform(self.data_frame["Steps"].astype(str).to_numpy())
         c_sim = 100 * (cosine_similarity(word_count_vector))
         self.data_frame["Potential Match"] = self.data_frame[self.uniq_header]
         dataframe = pd.DataFrame(c_sim, columns=self.data_frame["Potential Match"],
@@ -249,16 +254,22 @@ class SimilarityIO:
         """Function which orchestrate the entire sequence of cosine similarity matching
         from IO layer"""
         start = datetime.datetime.now().timestamp()
-        if self.__read_to_panda_df() and self.__validate_input():
-            self.__set_uniq_header()
-            self.__get_duplicate_id()
-            self.__refine_df()
-            self.create_merged_df()
-            if self.is_new_text == 1:
-                self.__new_text_df()
-            self.__create_mergrd_file()
-            report_df = self.process_cos_match()
-            self.__write_csv(report_df, "recommendation.csv")
-            self.report_brief_html(report_df)
+        try:
+            if self.__read_to_panda_df() and self.__validate_input():
+                self.__set_uniq_header()
+                self.__get_duplicate_id()
+                self.__refine_df()
+                self.create_merged_df()
+                if self.is_new_text == 1:
+                    self.__new_text_df()
+                self.__create_mergrd_file()
+                report_df = self.process_cos_match()
+                self.__write_csv(report_df, "recommendation.csv")
+                self.report_brief_html(report_df)
+        except Exception as ex: # pylint: disable=W0703
+            print("Error while processing the similarity. Please report to the developer at"
+                  "'https://pypi.org/project/similarity-processor/' or "
+                  "'https://github.com/philips-software/TextSimilarityProcessor")  # pragma: no mutate
+            print(ex)
         end = datetime.datetime.now().timestamp()
         print("Execution time %s" % (end - start))  # pragma: no mutate
