@@ -64,7 +64,7 @@ def get_last_line_file(file):
     data_frame = function_dict[file.split('.')[-1].upper()](file)
     if data_frame.empty:
         print("DataFrame is empty!/ input file is not generated")
-    return data_frame.index[-1]
+    return data_frame.loc[data_frame.index[-1], data_frame.columns[0]]
 
 
 def find_last_outfile():
