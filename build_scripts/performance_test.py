@@ -38,7 +38,7 @@ def run_performance_test(time_perf):
         sys.exit(1)
     time0 = time.time()
     call_subprocess('python3 -m similarity_processor.similarity_cmd --p "%s"'
-                    ' --u 0 --c "1" --r "0,100" --f "1030000"' % input_file)
+                    ' --u 0 --c "1" --r "50,100" --f "1030000"' % input_file)
     time1 = time.time()
     execution_time = time1 - time0
     out_file = os.path.join(os.path.abspath(os.path.join(__file__, os.pardir)),
