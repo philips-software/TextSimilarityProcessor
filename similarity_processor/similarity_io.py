@@ -38,7 +38,6 @@ class SimilarityIO:
         self.col_int = col_int
         LOG.info("\nColumns of Interest:%s", str(self.col_int))  # pragma: no mutate
         self.filter_range = str(filter_range)
-        print(self.filter_range)
         LOG.info("\nfilter_range value:%s", str(self.filter_range))  # pragma: no mutate
         self.num_html_row = num_html_row
         LOG.info("\nnumber of html row:%s", str(self.num_html_row))  # pragma: no mutate

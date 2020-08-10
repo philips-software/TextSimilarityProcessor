@@ -3,6 +3,7 @@ file to run the performance test on similarity tool"""
 import os
 import sys
 import time
+import glob
 import lipsum
 import pandas as pd
 from subprocess_calls import call_subprocess
@@ -39,7 +40,8 @@ def run_performance_test(time_perf):
     call_subprocess('python3 -m similarity_processor.similarity_cmd --p "%s" --u 0 --c "1" --r "0,100"' % input_file)
     time1 = time.time()
     execution_time = time1 - time0
-    out_file = os.path.join(os.path.abspath(os.path.join(__file__, os.pardir)), "input_data_recommendation.xlsx")
+    out_file = os.path.join(os.path.abspath(os.path.join(__file__, os.pardir)),
+                            "input_data_recommendation_%s.xlsx" % str(find_last_outfile()))
     out_count = get_last_line_file(out_file)
     print("Total time taken to analyse %s input data is %s sec and generated %s combination match " % (input_count,
                                                                                                        execution_time,
@@ -62,6 +64,17 @@ def get_last_line_file(file):
     if data_frame.empty:
         print("DataFrame is empty!/ input file is not generated")
     return data_frame.index[-1]
+
+
+def find_last_outfile():
+    """ Function to get the last split filename index"""
+    try:
+        out_file_path = os.path.abspath(os.path.join(__file__, os.pardir))
+        out_put_list = (glob.glob("%s%sinput_data_recommendation_*.xlsx" % (out_file_path, os.sep)))
+        last_out_file_index = ([i.split('input_data_recommendation_')[1].split('.xlsx')[0] for i in out_put_list])
+    except Exception as exc: # pylint: disable=W0703
+        print(str(exc))
+    return last_out_file_index[-1]
 
 
 if __name__ == "__main__":
