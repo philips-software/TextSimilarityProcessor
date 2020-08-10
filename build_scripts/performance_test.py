@@ -36,10 +36,10 @@ def run_performance_test(time_perf):
         print("input file is not generated")
         sys.exit(1)
     time0 = time.time()
-    call_subprocess('python3 -m similarity_processor.similarity_cmd --p "%s" --u 0 --c "1"' % input_file)
+    call_subprocess('python3 -m similarity_processor.similarity_cmd --p "%s" --u 0 --c "1" --r "0,100"' % input_file)
     time1 = time.time()
     execution_time = time1 - time0
-    out_file = os.path.join(os.path.abspath(os.path.join(__file__, os.pardir)), "input_data_recommendation.csv")
+    out_file = os.path.join(os.path.abspath(os.path.join(__file__, os.pardir)), "input_data_recommendation.xlsx")
     out_count = get_last_line_file(out_file)
     print("Total time taken to analyse %s input data is %s sec and generated %s combination match " % (input_count,
                                                                                                        execution_time,
