@@ -64,7 +64,7 @@ jobs:
           python3 build_scripts/sanity_test.py
     - name: Conduct the performance test on new wheel created
       run: |
-          python3 build_scripts/performance_test.py 0.045
+          python3 build_scripts/performance_test.py 0.23
     - uses: actions/upload-artifact@v2
       with:
         name: my-artifact_performance
