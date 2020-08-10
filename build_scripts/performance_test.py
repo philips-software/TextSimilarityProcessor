@@ -11,7 +11,7 @@ from subprocess_calls import call_subprocess
 
 def create_input():
     """ Function used to generate the input file to do the performance test"""
-    row_size = 5  # given row size = 10 will generate around 17,000 rows of data in the excel file generated.
+    row_size = 3  # given row size = 10 will generate around 17,000 rows of data in the excel file generated.
     data = []
     for __ in range(row_size):
         data.extend(lipsum.paras(150, True).split('.'))
@@ -37,7 +37,8 @@ def run_performance_test(time_perf):
         print("input file is not generated")
         sys.exit(1)
     time0 = time.time()
-    call_subprocess('python3 -m similarity_processor.similarity_cmd --p "%s" --u 0 --c "1" --r "0,100"' % input_file)
+    call_subprocess('python3 -m similarity_processor.similarity_cmd --p "%s"'
+                    ' --u 0 --c "1" --r "95,100" --f "1030000"' % input_file)
     time1 = time.time()
     execution_time = time1 - time0
     out_file = os.path.join(os.path.abspath(os.path.join(__file__, os.pardir)),
