@@ -71,18 +71,27 @@ pip install similarity-processor
 
 ```sh
 >>> from similarity_processor.similarity_io import SimilarityIO
->>> similarity_io_obj = SimilarityIO("path\to\TestBank.xlsx", 0, "1,2,3", 11, 0, None)
+>>> similarity_io_obj = SimilarityIO("path\to\TestBank.xlsx", 0, "1,2,3")
 >>> similarity_io_obj.orchestrate_similarity()
 ```
 
-Arguments:
+### Arguments
 
-1. Path to the input file  
+Mandatory
+
+1. Path to the input file
 2. Unique id value column id in xlsx  
 3. Interested columns in xlsx  
-4. html html report rows default is 10  
-5. Are you checking a new text against a existing text bank ?  
-6. If yes: new text  
+
+Optional
+
+1. Upper and lower range to filter the similarity values in the output
+   (defaulted "60,100")
+2. Number of rows in the html report, defaulted to 100  
+3. Are you checking a new text against a existing text bank?
+4. If yes: new text
+5. Filter value to split the report xlsx file, defaulted to 500000,
+   500001 onward row will be moved to new file
 
 ```sh
 import pandas as pd
@@ -114,7 +123,7 @@ processed_similarity.to_csv(r"path\to\report\folder\report.csv", header=True)
 - A merged file with data in the "interested columns in xlsx"  
 
 - An html brief report containing the top 10 similarities
- (10 is default value which can be changed by --n option)  
+ (100 is default value which can be changed by --n option)  
 
 ## Contact
 
