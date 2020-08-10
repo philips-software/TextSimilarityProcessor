@@ -39,13 +39,14 @@ class TextSimilarityWindow:
         self.path, self.path_t = __place_ui_item("Input File Path", 1, 30)
         self.uniq_id, self.uniq_id_t = __place_ui_item("Unique ID Column", 2)
         self.steps_id, self.steps_t = __place_ui_item("Columns Of Interest", 3)
+        self.range_id, self.range_t = __place_ui_item("similarity range", 4)
 
         def __new_text_compare():
             """ Function used to create the place holder for the User input used
             for the new text to be compared """
             if self.is_new_text.get() == 1:
                 self.new_text = Entry(win, width=10)
-                self.new_text.place(x=200, y=ROW_SPACER * 6, width=340, height=50)
+                self.new_text.place(x=250, y=ROW_SPACER * 6, width=340, height=50)
             else:
                 self.new_text.destroy()
 
@@ -75,8 +76,8 @@ class TextSimilarityWindow:
         """ Function which is the entry for all the processing activity."""
         try:
             similarity_io_obj = SimilarityIO(self.path_t.get(),
-                                             self.uniq_id_t.get(), self.steps_t.get(),
-                                             10, self.is_new_text.get(), self.__get_new_text())
+                                             self.uniq_id_t.get(), self.steps_t.get(), self.range_t.get(),
+                                             100, self.is_new_text.get(), self.__get_new_text(), 500000)
             similarity_io_obj.orchestrate_similarity()
         except TypeError as error:
             print("Error:", str(error)) # pragma: no mutate

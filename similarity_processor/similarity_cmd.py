@@ -1,5 +1,5 @@
 """Koninklijke Philips N.V., 2019 - 2020. All rights reserved.
-File provide command line interface for the text similarity index processor """
+File provides command line interface for the text similarity """
 import os
 import sys
 import argparse
@@ -13,29 +13,42 @@ def create_parser(args):
     """ Function which add the command line arguments required for the command line input
     of text similarity index processor"""
     # Create the parser
-    cos_parser = argparse.ArgumentParser(description='Text Similarity Index Processor')
+    cos_parser = argparse.ArgumentParser(description='Text Similarity')
 
     # Add the arguments
     cos_parser.add_argument("--path",
                             metavar="--p",
                             type=str,
-                            help="the Input file path")
+                            help="Input file path")
 
     cos_parser.add_argument("--uniqid",
                             metavar="--u",
                             type=str,
-                            help="unique id index(column) of the input file")
+                            help="Unique id index(column) of the input file")
 
     cos_parser.add_argument("--colint",
                             metavar="--c",
                             type=str,
-                            help="the col of interest")
+                            help="Columns of interest")
 
     cos_parser.add_argument("--numrowcount",
                             metavar="--n",
-                            default=10,
+                            default=100,
                             type=int,
-                            help="the number of rows for html brief report")
+                            help="Number of rows for html brief report")
+
+    cos_parser.add_argument("--range",
+                            metavar="--r",
+                            default="60,100",
+                            type=str,
+                            help="Range of similarity of interest")
+
+    cos_parser.add_argument("--filter",
+                            metavar="--f",
+                            default=500000,
+                            type=int,
+                            help="Filter for report file row split")
+
     # ...Create your parser as you like...
     return cos_parser.parse_args(args)
 
@@ -44,5 +57,5 @@ if __name__ == '__main__':
     # Execute the parse_args() method
     ARGS = create_parser(sys.argv[1:])
     # Process the similarity with inputs provided
-    SIM_IO_OBJ = SimilarityIO(ARGS.path, ARGS.uniqid, ARGS.colint, ARGS.numrowcount, None)
+    SIM_IO_OBJ = SimilarityIO(ARGS.path, ARGS.uniqid, ARGS.colint, ARGS.range, ARGS.numrowcount, None, ARGS.filter)
     SIM_IO_OBJ.orchestrate_similarity()

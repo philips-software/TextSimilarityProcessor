@@ -29,12 +29,12 @@ class FunctionalTestVerification(unittest.TestCase):
 
             if new_text:
                 __data_merged = pd.read_excel(TestResource.golden_new_merged_file_path)
-                __data_recomend = pd.read_csv(TestResource.golden_new_recommendation_file_path)
+                __data_recomend = pd.read_excel(TestResource.golden_new_recommendation_file_path)
             else:
                 __data_merged = pd.read_excel(TestResource.golden_merged_file_path)
-                __data_recomend = pd.read_csv(TestResource.golden_recommendation_file_path)
+                __data_recomend = pd.read_excel(TestResource.golden_recommendation_file_path)
 
-            act_df_recomend = pd.read_csv(TestResource.recommendation_file_path)
+            act_df_recomend = pd.read_excel(TestResource.recommendation_file_path)
             act_html_report = pd.read_html(TestResource.brief_report_path)
             ref_html_report = pd.read_html(TestResource.golden_brief_report_path)
             act_df_merged = pd.read_excel(TestResource.merged_file_path)
@@ -46,6 +46,12 @@ class FunctionalTestVerification(unittest.TestCase):
             self.assertEqual(True, __data_recomend["UNIQ ID"].equals(
                 act_df_recomend["UNIQ ID"]),
                              "Actual and recommended ['UNIQ ID'] data matches")
+            self.assertEqual(True, __data_recomend["Steps_y"].equals(
+                act_df_recomend["Steps_y"]),
+                             "Actual and recommended ['Steps_y'] data matches")
+            self.assertEqual(True, __data_recomend["Steps_x"].equals(
+                act_df_recomend["Steps_x"]),
+                             "Actual and recommended ['Steps_x'] data matches")
             self.assertEqual(True, __data_recomend['POTENTIAL MATCH'].equals(act_df_recomend['POTENTIAL MATCH']),
                              "Actual and recommended ['POTENTIAL MATCH'] data matches")
             self.assertEqual(True, __data_merged.equals(act_df_merged), "Actual and merged data matches")

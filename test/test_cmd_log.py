@@ -53,12 +53,39 @@ class ParserAndLogTest(unittest.TestCase):
 
     def test_numrowcount_default(self):
         """ Function to test the default number of row count in the command line
-                correct and incorrect """
+                for default """
         with self.assertRaises(SystemExit):
-            check_create_parser("-c", "colint_test")
+            check_create_parser("-n", "1")
         parsed = check_create_parser("--c", "colint_test")
-        self.assertEqual(parsed.colint, "colint_test")
-        self.assertEqual(parsed.numrowcount, 10)
+        self.assertEqual(parsed.numrowcount, 100)
+
+    def test_similarity_range(self):
+        """ Function to test the similarity input range of values for filtering correct and incorrect """
+        with self.assertRaises(SystemExit):
+            check_create_parser("-r", '1,2')
+        parsed = check_create_parser("--r", '1,2')
+        self.assertEqual(parsed.range, "1,2")
+
+    def test_similarity_range_default(self):
+        """ Function to test the similarity input range default values for filtering correct and incorrect """
+        with self.assertRaises(SystemExit):
+            check_create_parser("-r", "range_test")
+        parsed = check_create_parser("--c", "colint_test")
+        self.assertEqual(parsed.range, "60,100")
+
+    def test_filter(self):
+        """ Function to test the similarity row splitter """
+        with self.assertRaises(SystemExit):
+            check_create_parser("-f", '1,2')
+        parsed = check_create_parser("--f", "500")
+        self.assertEqual(parsed.filter, 500)
+
+    def test_filter_default(self):
+        """ Function to test the similarity row splitter default """
+        with self.assertRaises(SystemExit):
+            check_create_parser("-f", "range_test")
+        parsed = check_create_parser("--c", "colint_test")
+        self.assertEqual(parsed.filter, 500000)
 
     def test_from_command_help(self):
         """Test function to test the command line help option"""

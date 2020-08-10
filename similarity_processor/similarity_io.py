@@ -1,5 +1,5 @@
 """Koninklijke Philips N.V., 2019 - 2020. All rights reserved.
-This file process the IO for the Text similarity index processor """
+This file process the IO for the Text similarity """
 import math
 import os
 import datetime
@@ -22,12 +22,13 @@ def is_nan(value):
 
 
 class SimilarityIO:
-    """ This class is used for IO Processing the text similarity index processing tool.
+    """ This class is used for IO Processing the text similarity tool.
     User input file is fetched here, also intermediate file as well as
     the final recommendation creating are tasks for this class """
 
-    def __init__(self, file_path, uniq_id, col_int, num_html_row=10, is_new_text=False, new_text=None):
-        """constructor for Similarity input output processor, which initializes the the input variables needed IO
+    def __init__(self, file_path, uniq_id, col_int, filter_range="60,100", num_html_row=100, is_new_text=False,
+                 new_text=None, report_row_filter=500000):
+        """ Constructor for Similarity input output processor, which initializes the the input variables needed IO
         processing """
         LOG.info("\nSimilarity_UI \nValues passed:\n")  # pragma: no mutate
         self.file_path = file_path
@@ -36,8 +37,14 @@ class SimilarityIO:
         LOG.info("\nUnique ID Column:%s", str(self.uniq_id))  # pragma: no mutate
         self.col_int = col_int
         LOG.info("\nColumns of Interest:%s", str(self.col_int))  # pragma: no mutate
+        self.filter_range = str(filter_range)
+        print(self.filter_range)
+        LOG.info("\nfilter_range value:%s", str(self.filter_range))  # pragma: no mutate
         self.num_html_row = num_html_row
         LOG.info("\nnumber of html row:%s", str(self.num_html_row))  # pragma: no mutate
+        self.report_row_filter = report_row_filter
+        LOG.info("\nnumber of html row split filter:%s", str(self.report_row_filter))  # pragma: no mutate
+
         self.is_new_text = is_new_text
         self.new_text = new_text
         LOG.info("\nNew_text:%s", str(self.new_text))  # pragma: no mutate
@@ -70,10 +77,8 @@ class SimilarityIO:
 
     def __get_duplicate_id(self):
         """ Function which identifies if any duplicate ID present in the input file """
-        # List the duplicate ID
         __duplicated_list = list(self.data_frame[self.uniq_header].duplicated())
         __du_list = []
-        __data = [[]]
         # Remove the 'NaN' in case of empty cell and filter only IDs
         for key, item in enumerate(__duplicated_list):
             if item:
@@ -135,16 +140,16 @@ class SimilarityIO:
 
     def __write_xlsx(self, data_f, name):
         """ Function which write the dataframe to xlsx """
-        file_path = os.path.join(self.__get_file_path(), self.__get_file_name() + "_" + name)
-        # Github open ticket for the abstract method
-        writer = pd.ExcelWriter("%s.xlsx" % file_path, engine="xlsxwriter")
-        data_f.to_excel(writer, sheet_name=name)
-        writer.save()
+        data_f.reset_index(inplace=True, drop=True)
+        list_of_dfs = [data_f.loc[i:i + self.report_row_filter - 1, :]
+                       for i in range(0, data_f.shape[0], self.report_row_filter)]
+        for report_df_index, df_content in enumerate(list_of_dfs):
+            file_path = os.path.join(self.__get_file_path(), self.__get_file_name() + "_" + name + "_" +
+                                     str(report_df_index))
 
-    def __write_csv(self, data_f, name):
-        """ Function which write the dataframe to xlsx """
-        file_path = os.path.join(self.__get_file_path(), self.__get_file_name() + "_" + name)
-        data_f.to_csv(file_path, header=True)
+            writer = pd.ExcelWriter("%s.xlsx" % file_path, engine="xlsxwriter")
+            df_content.to_excel(writer, sheet_name=name)
+            writer.save()
 
     def __new_text_df(self):
         """ Function which is created to form the new dataframe to include new text if
@@ -194,16 +199,14 @@ class SimilarityIO:
         </html>
         '''
         with open(html_file_path, 'w') as html_file:
-
             html_file.write(html_string.format(table=html_data_frame.to_html(classes='mystyle')).
                             replace(r'\r\n', "<br>").replace(r'\n', "<br>").replace(r'\r', "<br>"))
         shutil.copy(os.path.join(os.path.dirname(__file__), "df_style.css"), os.path.join(self.__get_file_path(),
                                                                                           "df_style.css"))
 
-    def report_brief_html(self, data_similarity):
-        """ Function which report the highest similarity match in html output based on input argument (defaulted to
-        10 rows #no """
-        brief_report = data_similarity.sort_values('SIMILARITY', ascending=False).iloc[:int(self.num_html_row)]
+    def report(self, brief_report):
+        """ Function which report the highest similarity match in html and xlsx output based on input argument (
+        defaulted to 100 rows #no in html """
         if not brief_report.empty:
             html_df = self.data_frame.rename(columns={self.uniq_header: 'UNIQ ID', "Steps": "Steps"})
             html_df['Steps'] = self.set_column_width(html_df[['Steps']])
@@ -213,13 +216,16 @@ class SimilarityIO:
             temp_data_frame2 = ((pd.merge(html_df.drop(['Potential Match'], axis=1), temp_data_frame1,
                                           on=['POTENTIAL MATCH'],
                                           how='inner')))
-            self.__write_html(temp_data_frame2)
+            self.__write_html(temp_data_frame2.sort_values('SIMILARITY', ascending=False).iloc[:int(self.num_html_row)])
+            self.__write_xlsx(temp_data_frame2.sort_values('SIMILARITY', ascending=False), "recommendation")
         else:
             LOG.error("\nNothing to write to html file")  # pragma: no mutate
             print("\nNothing to write to html file")  # pragma: no mutate
 
     def process_cos_match(self):
         """ Function which process the data frame for matching/finding similarity index """
+        self.filter_range = [int(i) for i in self.filter_range.split(',')]
+        self.filter_range.sort()
         count_vect = CountVectorizer()
         word_count_vector = count_vect.fit_transform(self.data_frame["Steps"].astype(str).to_numpy())
         c_sim = 100 * (cosine_similarity(word_count_vector))
@@ -230,7 +236,18 @@ class SimilarityIO:
         dataframe[:] = np.where(np.arange(row)[:, None] >= np.arange(col), np.nan, dataframe)
         report_df = dataframe.stack().reset_index()
         report_df.columns = ["UNIQ ID", "POTENTIAL MATCH", "SIMILARITY"]
+        report_df = (report_df[(self.filter_range[0] <= report_df['SIMILARITY']) &
+                               (report_df['SIMILARITY'] <= self.filter_range[1])])  # pragma: no mutate
         return report_df
+
+    def __validate_range(self):
+        """ Function which validate the input lower and upper range """
+        __ret_val = True
+        filter_range = list(map(int, self.filter_range.split(',')))
+        if any(range_val > 100 or range_val < 0 for range_val in filter_range):
+            __ret_val = False
+            LOG.error("\nEither of range value is wrong")  # pragma: no mutate
+        return __ret_val
 
     def __validate_input(self):
         """ Function to validate the input parameters """
@@ -242,9 +259,11 @@ class SimilarityIO:
             test_list = [int(i) for i in input_list]
             test_list.append(int(self.uniq_id))
             list_check = list(map(lambda item: True if item <= columns - 1 else False, test_list))
+
             if False in list_check:
                 __ret_val = False
-                LOG.error("\nEither or both unique id and col of interest out of range")  # pragma: no mutate
+                LOG.error("\nEither or both unique id and col of interest out of range, or range value is wrong")  #
+                # pragma: no mutate
             return __ret_val
         except ValueError:
             LOG.error("\nInput data is not an integer")  # pragma: no mutate
@@ -254,22 +273,15 @@ class SimilarityIO:
         """Function which orchestrate the entire sequence of cosine similarity matching
         from IO layer"""
         start = datetime.datetime.now().timestamp()
-        try:
-            if self.__read_to_panda_df() and self.__validate_input():
-                self.__set_uniq_header()
-                self.__get_duplicate_id()
-                self.__refine_df()
-                self.create_merged_df()
-                if self.is_new_text == 1:
-                    self.__new_text_df()
-                self.__create_mergrd_file()
-                report_df = self.process_cos_match()
-                self.__write_csv(report_df, "recommendation.csv")
-                self.report_brief_html(report_df)
-        except Exception as ex: # pylint: disable=W0703
-            print("Error while processing the similarity. Please report to the developer at"
-                  "'https://pypi.org/project/similarity-processor/' or "
-                  "'https://github.com/philips-software/TextSimilarityProcessor")  # pragma: no mutate
-            print(ex)
+        if self.__read_to_panda_df() and self.__validate_input() and self.__validate_range():
+            self.__set_uniq_header()
+            self.__get_duplicate_id()
+            self.__refine_df()
+            self.create_merged_df()
+            if self.is_new_text == 1:
+                self.__new_text_df()
+            self.__create_mergrd_file()
+            report_df = self.process_cos_match()
+            self.report(report_df)
         end = datetime.datetime.now().timestamp()
         print("Execution time %s" % (end - start))  # pragma: no mutate

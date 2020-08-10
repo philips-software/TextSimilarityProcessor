@@ -1,0 +1,10 @@
+Test Case(ID / Brief Description),Steps
+3,this is a simple dummy  test try the of textwhere the string values are exceeding the maximum length of the line so that the string wrapping feature is tested here. Even now the string length is not sufficient to terminate
+101,sample test to  similarity
+TC_001,this is  a sample test to generate the similarity
+TC_002,this is a sample test to generate the similarity on  similarity processor 
+TC_004,this should not get  called
+TC_005,these are random tests
+TC_006,this test case can call to other
+TC_007,tests to
+TC_099,so get it and try

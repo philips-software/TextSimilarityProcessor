@@ -1,5 +1,5 @@
 """Koninklijke Philips N.V., 2019 - 2020. All rights reserved.
-This file does the functional test of the "Text similarity processor
+This file does the functional test of the "Text similarity
 from IO layer as well as UI later """
 import os
 import unittest
@@ -34,8 +34,8 @@ class MyFunctionalTestCase(unittest.TestCase):
         presentation later to the IO layer to check the underlying functionality """
 
         cosine = SimilarityIO(TestResource.file_path,
-                              TestResource.testcase_id, TestResource.teststeps_id, TestResource.num_row,
-                              TestResource.var, TestResource.get_new_text)
+                              TestResource.testcase_id, TestResource.teststeps_id, TestResource.sim_range,
+                              TestResource.num_row, TestResource.var, TestResource.get_new_text)
         cosine.orchestrate_similarity()
         self.verify_func_obj.verify_functional_test()
 
