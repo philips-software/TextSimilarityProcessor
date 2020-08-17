@@ -197,7 +197,7 @@ class SimilarityIO:
           </body>
         </html>
         '''
-        with open(html_file_path, 'w') as html_file:
+        with open(html_file_path, 'w', encoding='utf-8') as html_file:
             html_file.write(html_string.format(table=html_data_frame.to_html(classes='mystyle')).
                             replace(r'\r\n', "<br>").replace(r'\n', "<br>").replace(r'\r', "<br>"))
         shutil.copy(os.path.join(os.path.dirname(__file__), "df_style.css"), os.path.join(self.__get_file_path(),
