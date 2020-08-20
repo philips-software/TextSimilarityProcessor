@@ -79,18 +79,18 @@ pip install similarity-processor
 
 Mandatory
 
-1. Path to the input file
-2. Unique id value column id in xlsx  
-3. Interested columns in xlsx  
+- Path to the input file
+- Unique id value column id in xlsx  
+- Interested columns in xlsx  
 
 Optional
 
-1. Upper and lower range to filter the similarity values in the output
+- Upper and lower range to filter the similarity values in the output
    (defaulted "60,100")
-2. Number of rows in the html report, defaulted to 100  
-3. Are you checking a new text against a existing text bank?
-4. If yes: new text
-5. Filter value to split the report xlsx file, defaulted to 500000,
+- Number of rows in the html report, defaulted to 100  
+- Are you checking a new text against a existing text bank?
+- If yes: new text
+- Filter value to split the report xlsx file, defaulted to 500000,
    500001 onward row will be moved to new file
 
 ```sh
