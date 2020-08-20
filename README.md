@@ -41,7 +41,7 @@ pip install similarity-processor
 ### UI
 
 ```sh
->>>python -m similarity_processor.similarity_ui
+>>>python -m similarity.similarity_ui
 ```
 
 - Path to the test/requirement/other other document to be
@@ -58,35 +58,44 @@ pip install similarity-processor
 ### Commandline
 
 ```sh
->>>python -m similarity_processor.similarity_cmd --p "path\to\TestBank.xlsx" --u 0 --c "1,2,3" --n 8
+>>>python -m similarity --p "path\to\TestBank.xlsx" --u 0 --c "1,2,3" --n 8
 ```
 
 - Help option can be found at,  
 
 ```sh
->>>python -m similarity_processor.similarity_cmd --h
+>>>python -m similarity --h
 ```
 
 ### Code
 
 ```sh
->>> from similarity_processor.similarity_io import SimilarityIO
->>> similarity_io_obj = SimilarityIO("path\to\TestBank.xlsx", 0, "1,2,3", 11, 0, None)
+>>> from similarity.similarity_io import SimilarityIO
+>>> similarity_io_obj = SimilarityIO("path\to\TestBank.xlsx", 0, "1,2,3")
 >>> similarity_io_obj.orchestrate_similarity()
 ```
 
-Arguments:
+### Arguments
 
-1. Path to the input file  
-2. Unique id value column id in xlsx  
-3. Interested columns in xlsx  
-4. html html report rows default is 10  
-5. Are you checking a new text against a existing text bank ?  
-6. If yes: new text  
+Mandatory
+
+- Path to the input file
+- Unique id value column id in xlsx  
+- Interested columns in xlsx  
+
+Optional
+
+- Upper and lower range to filter the similarity values in the output
+   (defaulted "60,100")
+- Number of rows in the html report, defaulted to 100  
+- Are you checking a new text against a existing text bank?
+- If yes: new text
+- Filter value to split the report xlsx file, defaulted to 500000,
+   500001 onward row will be moved to new file
 
 ```sh
 import pandas as pd
-from similarity_processor.similarity_io import SimilarityIO
+from similarity.similarity_io import SimilarityIO
 
 demo_df = pd.read_excel(r"input\xlsx\sheet\name")  # You could read from any input source
 
@@ -114,7 +123,7 @@ processed_similarity.to_csv(r"path\to\report\folder\report.csv", header=True)
 - A merged file with data in the "interested columns in xlsx"  
 
 - An html brief report containing the top 10 similarities
- (10 is default value which can be changed by --n option)  
+ (100 is default value which can be changed by --n option)  
 
 ## Contact
 

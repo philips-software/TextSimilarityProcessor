@@ -7,7 +7,7 @@ import filecmp
 import subprocess
 from datetime import datetime
 from test.test_resource import TestResource
-from similarity_processor.similarity_cmd import create_parser
+from similarity.similarity_cmd import create_parser
 import similarity_logging as cl
 LOG = cl.get_logger()
 
@@ -19,51 +19,29 @@ def check_create_parser(option, value):
 
 class ParserAndLogTest(unittest.TestCase):
     """ Class to test the logging and command line input feature """
-    def test_path(self):
-        """ Function to test the path variable in the command line
-        correct and incorrect """
-        with self.assertRaises(SystemExit):
-            check_create_parser("-p", "path_test")
-        parsed = check_create_parser("--p", "path_test")
-        self.assertEqual(parsed.path, "path_test")
 
-    def test_uniqid(self):
-        """ Function to test the unique id  variable in the command line
-                correct and incorrect """
+    def cmd_args(self, actual, arg, arg_text, exp):
+        """ Template function to test the commandline arguments"""
         with self.assertRaises(SystemExit):
-            check_create_parser("-u", "uniqid_test")
-        parsed = check_create_parser("--u", "uniqid_test")
-        self.assertEqual(parsed.uniqid, "uniqid_test")
+            check_create_parser(arg, arg_text)
+        self.assertEqual(actual, exp, "tested %s" % arg_text)
 
-    def test_colint(self):
-        """ Function to test the column of interest variable in the command line
-                correct and incorrect """
-        with self.assertRaises(SystemExit):
-            check_create_parser("-c", "colint_test")
-        parsed = check_create_parser("--c", "colint_test")
-        self.assertEqual(parsed.colint, "colint_test")
-
-    def test_numrowcount(self):
-        """ Function to test the number of row count in the command line
-                correct and incorrect """
-        with self.assertRaises(SystemExit):
-            check_create_parser("-n", '1')
-        parsed = check_create_parser("--n", '1')
-        self.assertEqual(parsed.numrowcount, 1)
-
-    def test_numrowcount_default(self):
-        """ Function to test the default number of row count in the command line
-                correct and incorrect """
-        with self.assertRaises(SystemExit):
-            check_create_parser("-c", "colint_test")
-        parsed = check_create_parser("--c", "colint_test")
-        self.assertEqual(parsed.colint, "colint_test")
-        self.assertEqual(parsed.numrowcount, 10)
+    def test_commandline_options(self):
+        """ Function to test the similarity command line options """
+        self.cmd_args(check_create_parser("--c", "colint_test").filter, "-f", 'range_test', 500000)
+        self.cmd_args(check_create_parser("--f", "500").filter, "-f", '1,2', 500)
+        self.cmd_args(check_create_parser("--c", "colint_test").range, "-r", 'range_test', "60,100")
+        self.cmd_args(check_create_parser("--r", '1,2').range, "-r", '1,2', "1,2")
+        self.cmd_args(check_create_parser("--c", "colint_test").numrowcount, "-n", '1', 100)
+        self.cmd_args(check_create_parser("--n", '1').numrowcount, "-n", '1', 1)
+        self.cmd_args(check_create_parser("--c", "colint_test").colint, "-c", "colint_test", "colint_test")
+        self.cmd_args(check_create_parser("--u", "uniqid_test").uniqid, "-u", "uniqid_test", "uniqid_test")
+        self.cmd_args(check_create_parser("--p", "path_test").path, "-p", "path_test", "path_test")
 
     def test_from_command_help(self):
         """Test function to test the command line help option"""
         script = os.path.abspath(os.path.join(TestResource.par_dir,
-                                              "similarity_processor", "similarity_cmd.py"))
+                                              "similarity"))
         cmd = 'python %s --h'%script
         output = open(os.path.join(TestResource.tst_resource_folder, "cmd_help.txt"), "r")
         tmpfile = open(os.path.join(TestResource.tst_resource_folder, "tmp_help.txt"), "w")

@@ -1,15 +1,15 @@
 """Koninklijke Philips N.V., 2019 - 2020. All rights reserved.
-This file does the functional test of the "Text similarity processor
+This file does the functional test of the "Text similarity
 from IO layer as well as UI later """
 import os
 import unittest
 import subprocess
 from test.test_resource import TestResource
 from test.verify_path import FunctionalTestVerification
-from similarity_processor.similarity_io import SimilarityIO
+from similarity.similarity_io import SimilarityIO
 # Below codes are comments as they cannot be executed in CI
 # from tkinter import Tk
-# from similarity_processor.similarity_ui import TextSimilarityWindow
+# from similarity.similarity_ui import TextSimilarityWindow
 
 
 class MyFunctionalTestCase(unittest.TestCase):
@@ -34,8 +34,8 @@ class MyFunctionalTestCase(unittest.TestCase):
         presentation later to the IO layer to check the underlying functionality """
 
         cosine = SimilarityIO(TestResource.file_path,
-                              TestResource.testcase_id, TestResource.teststeps_id, TestResource.num_row,
-                              TestResource.var, TestResource.get_new_text)
+                              TestResource.testcase_id, TestResource.teststeps_id, TestResource.sim_range,
+                              TestResource.num_row, TestResource.var, TestResource.get_new_text)
         cosine.orchestrate_similarity()
         self.verify_func_obj.verify_functional_test()
 
@@ -57,7 +57,7 @@ class MyFunctionalTestCase(unittest.TestCase):
     def test_from_command_line(self):
         """Test function which provides input using command line interface"""
         script = os.path.abspath(os.path.join(TestResource.par_dir,
-                                              "similarity_processor", "similarity_cmd.py"))
+                                              "similarity"))
         cmd = 'python %s --p "%s" --u "%s" --c "%s" --n "%s"' % (
             script, TestResource.file_path,
             TestResource.command_unique_id, TestResource.command_colint, TestResource.num_row)

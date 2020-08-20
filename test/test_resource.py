@@ -9,6 +9,7 @@ class TestResource:
     # pylint: disable=too-few-public-methods
     testcase_id = 0
     teststeps_id = str("1,2")
+    sim_range = str("60,100")
     var = 0
     get_new_text = "this should not get called"
     command_unique_id = "0"
@@ -20,20 +21,29 @@ class TestResource:
 
     file_path = os.path.abspath(os.path.join(tst_resource_folder, "Testcases.xlsx"))
     merged_file_path = os.path.abspath(os.path.join(tst_resource_folder,
-                                                    "Testcases_merged_steps.xlsx"))
+                                                    "Testcases_merged_steps_0.xlsx"))
     brief_report_path = os.path.abspath(os.path.join(tst_resource_folder,
                                                      "Testcases_brief_report.html"))
     recommendation_file_path = os.path.abspath(os.path.join(tst_resource_folder,
-                                                            "Testcases_recommendation.csv"))
+                                                            "Testcases_recommendation_0.xlsx"))
     duplicate_id_file_path = os.path.abspath(os.path.join(tst_resource_folder,
-                                                          "Testcases_Duplicate_ID.xlsx"))
+                                                          "Testcases_Duplicate_ID_0.xlsx"))
 
     golden_merged_file_path = os.path.abspath(os.path.join(tst_resource_folder,
                                                            "golden_Testcases_merged_steps.xlsx"))
+    golden_merged_file_empty_report = os.path.abspath(os.path.join(tst_resource_folder,
+                                                                   "golden_Testcases_merged_empty_report.csv"))
     golden_brief_report_path = os.path.abspath(os.path.join(tst_resource_folder,
                                                             "golden_Testcases_brief_report.html"))
+
+    golden_brief_report_path_line_ter = os.path.abspath(os.path.join(
+        tst_resource_folder, "golden_Testcases_merged_empty_report_brief.html"))
+
+    brief_report_path_line_ter = os.path.abspath(os.path.join(
+        tst_resource_folder, "golden_Testcases_merged_empty_report_brief_report.html"))
+
     golden_recommendation_file_path = os.path.abspath(
-        os.path.join(tst_resource_folder, "golden_Testcases_recommendation.csv"))
+        os.path.join(tst_resource_folder, "golden_Testcases_recommendation.xlsx"))
     golden_duplicate_id_file_path = os.path.abspath(os.path.join(
         tst_resource_folder, "golden_Testcases_Duplicate_ID.xlsx"))
 
@@ -42,5 +52,5 @@ class TestResource:
     golden_new_recommendation_file_path = os.path.abspath(
         os.path.join(tst_resource_folder, "golden_new_Testcases_recommendation.csv"))
 
-    log_file_path = os.path.abspath(os.path.join(par_dir, "similarity_processor", "text_similarity.log"))
+    log_file_path = os.path.abspath(os.path.join(par_dir, "similarity", "text_similarity.log"))
     empty_file_path = os.path.abspath(os.path.join(par_dir, "test_resource", "empty_testcase.xlsx"))

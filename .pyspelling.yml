@@ -2,7 +2,7 @@ matrix:
 
 - name: py
   sources:
-  - "similarity_processor/*.py"
+  - "similarity/*.py"
   - "test/*.py"
   aspell:
     lang: en
@@ -12,7 +12,7 @@ matrix:
   pipeline:
   - pyspelling.filters.python:
       comments: false
-      
+
 - name: markdown
   pipeline:
   - pyspelling.filters.text

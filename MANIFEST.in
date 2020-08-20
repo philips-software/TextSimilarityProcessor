@@ -6,4 +6,4 @@ include MAINTAINERS.md
 include README.md
 include CHANGELOG.md
 include INSTALL.md
-include similarity_processor/df_style.css
+include similarity/df_style.css

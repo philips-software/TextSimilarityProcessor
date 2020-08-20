@@ -7,12 +7,12 @@ import unittest
 import subprocess
 from test.test_resource import TestResource
 import numpy as np
-from similarity_processor.similarity_io import SimilarityIO
-from similarity_processor.similarity_io import is_nan
+from similarity.similarity_io import SimilarityIO
+from similarity.similarity_io import is_nan
 
 
 class IoTestCase(unittest.TestCase):
-    """ This test class verifies the Text similarity index processing to cover
+    """ This test class verifies the Text similarity to cover
     similarity_io.py and similarity_core.py and similarity_cmd.py """
 
     def test_isnan(self):
@@ -25,7 +25,7 @@ class IoTestCase(unittest.TestCase):
         """Function test the incorrect path input file"""
         text_check = msg
         flag = False
-        cos_io_obj = SimilarityIO(path, uniqid, colint, None, 0)
+        cos_io_obj = SimilarityIO(path, uniqid, colint, "60,100", 100, 0, None, 500000)
         cos_io_obj.orchestrate_similarity()
         line = subprocess.check_output(["tail", log_loc, TestResource.log_file_path])
         line = line.decode("UTF-8")
