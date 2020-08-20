@@ -21,6 +21,7 @@ class ParserAndLogTest(unittest.TestCase):
     """ Class to test the logging and command line input feature """
 
     def cmd_args(self, actual, arg, arg_text, exp):
+        """ Template function to test the commandline arguments"""
         with self.assertRaises(SystemExit):
             check_create_parser(arg, arg_text)
         self.assertEqual(actual, exp, "tested %s" % arg_text)
