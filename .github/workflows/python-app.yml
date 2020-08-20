@@ -15,13 +15,11 @@ env:
 jobs:
   build:
     name: Conduct "Static analysis, Test & Coverage, Spell check, Mutation testing " for 🐍 code
-    runs-on: ubuntu-18.04
+    runs-on: alpine3.11
     steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v2
+      - name: Set up node ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v1
         with:
-          python-version: 3.8
           node-version: ${{ env.NODE_VERSION }}
       - name: Upgrade pip
         run: |
@@ -41,15 +39,11 @@ jobs:
   publish:
     name: Build , Smoke test , Performance test, and publish Python 🐍 distributions 📦 to PyPI and TestPyPI
     needs: build
-    runs-on: ubuntu-18.04
+    runs-on: alpine3.11
     steps:
     - uses: actions/checkout@v2
     - name: Fetch all history for all tags and branches
       run: git fetch --prune --unshallow
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
     - name: Install the dependencies
       run: |
         python3 build_scripts/install_dependencies.py
