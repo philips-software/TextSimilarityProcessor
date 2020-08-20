@@ -1,2 +1,2 @@
 [run]
-omit =similarity_processor/similarity_ui.py
+omit =similarity/similarity_ui.py
