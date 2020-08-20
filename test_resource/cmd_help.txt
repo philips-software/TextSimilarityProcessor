@@ -1,13 +1,14 @@
-usage: similarity_cmd.py [-h] [--path --p] [--uniqid --u] [--colint --c]
-                         [--numrowcount --n] [--range --r] [--filter --f]
+usage: similarity [-h] [--path --p] [--uniqid --u] [--colint --c]
+                  [--numrowcount --n] [--range --r] [--filter --f]
 
 Text Similarity
 
 optional arguments:
   -h, --help         show this help message and exit
-  --path --p         Input file path
-  --uniqid --u       Unique id index(column) of the input file
-  --colint --c       Columns of interest
-  --numrowcount --n  Number of rows for html brief report
-  --range --r        Range of similarity of interest
-  --filter --f       Filter for report file row split
+  --path --p         Input file xlsx/csv path
+  --uniqid --u       Unique id index(column) of the input file [Example: --u
+                     0]
+  --colint --c       Columns of interest [Example: --c "1,2,3"]
+  --numrowcount --n  Number of rows for html brief report [Example: --n 500]
+  --range --r        Range of similarity of interest [Example: --r "70,100"]
+  --filter --f       Filter for report file row split [Example: --f 500000]

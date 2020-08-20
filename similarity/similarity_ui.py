@@ -5,8 +5,8 @@ from tkinter import Tk
 from tkinter import IntVar, END
 from tkinter import Label, Entry, Button, Checkbutton
 from tkinter import filedialog
-from similarity_processor.similarity_io import SimilarityIO
-import similarity_processor.similarity_logging as cl
+from similarity.similarity_io import SimilarityIO
+import similarity.similarity_logging as cl
 
 ROW_SPACER = 25
 LOG = cl.get_logger()

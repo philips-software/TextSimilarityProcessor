@@ -7,8 +7,8 @@ import unittest
 import subprocess
 from test.test_resource import TestResource
 import numpy as np
-from similarity_processor.similarity_io import SimilarityIO
-from similarity_processor.similarity_io import is_nan
+from similarity.similarity_io import SimilarityIO
+from similarity.similarity_io import is_nan
 
 
 class IoTestCase(unittest.TestCase):

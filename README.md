@@ -41,7 +41,7 @@ pip install similarity-processor
 ### UI
 
 ```sh
->>>python -m similarity_processor.similarity_ui
+>>>python -m similarity.similarity_ui
 ```
 
 - Path to the test/requirement/other other document to be
@@ -58,19 +58,19 @@ pip install similarity-processor
 ### Commandline
 
 ```sh
->>>python -m similarity_processor.similarity_cmd --p "path\to\TestBank.xlsx" --u 0 --c "1,2,3" --n 8
+>>>python -m similarity --p "path\to\TestBank.xlsx" --u 0 --c "1,2,3" --n 8
 ```
 
 - Help option can be found at,  
 
 ```sh
->>>python -m similarity_processor.similarity_cmd --h
+>>>python -m similarity --h
 ```
 
 ### Code
 
 ```sh
->>> from similarity_processor.similarity_io import SimilarityIO
+>>> from similarity.similarity_io import SimilarityIO
 >>> similarity_io_obj = SimilarityIO("path\to\TestBank.xlsx", 0, "1,2,3")
 >>> similarity_io_obj.orchestrate_similarity()
 ```
@@ -95,7 +95,7 @@ Optional
 
 ```sh
 import pandas as pd
-from similarity_processor.similarity_io import SimilarityIO
+from similarity.similarity_io import SimilarityIO
 
 demo_df = pd.read_excel(r"input\xlsx\sheet\name")  # You could read from any input source
 

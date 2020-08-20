@@ -5,7 +5,7 @@ import unittest
 import subprocess
 from test.test_resource import TestResource
 import pandas as pd
-from similarity_processor.similarity_io import SimilarityIO
+from similarity.similarity_io import SimilarityIO
 
 
 class TestSimilarityIO(unittest.TestCase):

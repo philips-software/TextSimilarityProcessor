@@ -7,7 +7,7 @@ import filecmp
 import subprocess
 from datetime import datetime
 from test.test_resource import TestResource
-from similarity_processor.similarity_cmd import create_parser
+from similarity.similarity_cmd import create_parser
 import similarity_logging as cl
 LOG = cl.get_logger()
 
@@ -90,7 +90,7 @@ class ParserAndLogTest(unittest.TestCase):
     def test_from_command_help(self):
         """Test function to test the command line help option"""
         script = os.path.abspath(os.path.join(TestResource.par_dir,
-                                              "similarity_processor", "similarity_cmd.py"))
+                                              "similarity"))
         cmd = 'python %s --h'%script
         output = open(os.path.join(TestResource.tst_resource_folder, "cmd_help.txt"), "r")
         tmpfile = open(os.path.join(TestResource.tst_resource_folder, "tmp_help.txt"), "w")

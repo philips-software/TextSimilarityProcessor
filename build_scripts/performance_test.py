@@ -37,7 +37,7 @@ def run_performance_test(time_perf):
         print("input file is not generated")
         sys.exit(1)
     time0 = time.time()
-    call_subprocess('python3 -m similarity_processor.similarity_cmd --p "%s"'
+    call_subprocess('python3 -m similarity --p "%s"'
                     ' --u 0 --c "1" --r "50,100" --f "1030000"' % input_file)
     time1 = time.time()
     execution_time = time1 - time0

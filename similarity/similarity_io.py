@@ -8,7 +8,7 @@ import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-import similarity_processor.similarity_logging as cl
+import similarity.similarity_logging as cl
 
 LOG = cl.get_logger()
 
@@ -76,12 +76,14 @@ class SimilarityIO:
 
     def __get_duplicate_id(self):
         """ Function which identifies if any duplicate ID present in the input file """
-        __duplicated_list = list(self.data_frame[self.uniq_header].duplicated())
+        unique_id_frame = pd.Series(self.data_frame[self.uniq_header]).fillna(method='ffill')
+        unique_id_frame = unique_id_frame.mask((unique_id_frame.shift(1) == unique_id_frame))
+        __duplicated_list = list(unique_id_frame.duplicated())
         __du_list = []
         # Remove the 'NaN' in case of empty cell and filter only IDs
         for key, item in enumerate(__duplicated_list):
             if item:
-                __du_list.append(self.data_frame[self.uniq_header][key])
+                __du_list.append(unique_id_frame[key])
         du_list = list(map(lambda x: 0 if is_nan(x) else x, __du_list))
         __data = {"Duplicate ID": [nonzero for nonzero in du_list if nonzero != 0]}
         # Create DataFrame and write

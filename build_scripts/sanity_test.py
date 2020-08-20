@@ -34,7 +34,7 @@ class SanityTestVerification(unittest.TestCase):
         """
         input_file = os.path.join(os.path.abspath(os.path.join(__file__, os.pardir, os.pardir)),
                                   "test_resource", "Testcases.xlsx")
-        call_subprocess('python3 -m similarity_processor.similarity_cmd --p "%s" --u 0 --c "1,2" --n "8"' % input_file)
+        call_subprocess('python3 -m similarity --p "%s" --u 0 --c "1,2" --n "8"' % input_file)
         self.verify_func_obj.verify_functional_test()
         print("Sanity test is COMPLETED & PASSED")
 
