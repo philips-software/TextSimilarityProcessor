@@ -23,16 +23,6 @@ class TestResource:
 
     file_path = os.path.abspath(os.path.join(tst_resource_folder, "Testcases.xlsx"))
 
-    # merged_file_path = os.path.abspath(os.path.join(tst_resource_folder,
-    #                                                 "golden_testcases_merged_steps_0.xlsx"))
-    # brief_report_path = os.path.abspath(os.path.join(tst_resource_folder,
-    #                                                  "golden_testcases_brief_report.html"))
-    # recommendation_file_path = os.path.abspath(os.path.join(tst_resource_folder,
-    #                                                         "golden_testcases_recommendation_0.xlsx"))
-    # recommendation_file_path = TestResource.get_result_("golden_testcases_recommendation_0.xlsx")
-    # duplicate_id_file_path = os.path.abspath(os.path.join(tst_resource_folder,
-    #                                                       "golden_testcases_Duplicate_ID_0.xlsx"))
-
     golden_merged_file_path = os.path.abspath(os.path.join(tst_resource_folder,
                                                            "golden_Testcases_merged_steps.xlsx"))
     golden_merged_file_empty_report = os.path.abspath(os.path.join(tst_resource_folder,
@@ -42,9 +32,6 @@ class TestResource:
 
     golden_brief_report_path_line_ter = os.path.abspath(os.path.join(
         tst_resource_folder, "golden_Testcases_merged_empty_report_brief.html"))
-
-    # brief_report_path_line_ter = os.path.abspath(os.path.join(
-    #     tst_resource_folder, "golden_Testcases_merged_empty_report_brief_report.html"))
 
     golden_recommendation_file_path = os.path.abspath(
         os.path.join(tst_resource_folder, "golden_Testcases_recommendation.xlsx"))
