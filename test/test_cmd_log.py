@@ -20,6 +20,11 @@ def check_create_parser(option, value):
 class ParserAndLogTest(unittest.TestCase):
     """ Class to test the logging and command line input feature """
 
+    @classmethod
+    def tearDown(cls):
+        """"Deletes the files created: merged, recommendation and duplicate."""
+        TestResource.clean_unnecessary_files()
+
     def cmd_args(self, actual, arg, arg_text, exp):
         """ Template function to test the commandline arguments"""
         with self.assertRaises(SystemExit):

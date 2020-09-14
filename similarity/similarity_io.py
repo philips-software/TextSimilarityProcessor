@@ -4,6 +4,8 @@ import math
 import os
 import datetime
 import shutil
+import time
+
 import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
@@ -145,9 +147,10 @@ class SimilarityIO:
         list_of_dfs = [data_f.loc[i:i + self.report_row_filter - 1, :]
                        for i in range(0, data_f.shape[0], self.report_row_filter)]
         for report_df_index, df_content in enumerate(list_of_dfs):
-            file_path = os.path.join(self.__get_file_path(), self.__get_file_name() + "_" + name + "_" +
-                                     str(report_df_index))
-
+            file_path = os.path.join(self.__get_file_path(), self.__get_file_name() + "_" + name + "_"
+                                     + str(report_df_index) + "_" +
+                                     str(datetime.datetime.fromtimestamp(time.time()).strftime(  # pragma: no mutate
+                                         '%H-%M-%S_%d_%m_%Y')))
             writer = pd.ExcelWriter("%s.xlsx" % file_path, engine="xlsxwriter")
             df_content.to_excel(writer, sheet_name=name)
             writer.save()
@@ -182,7 +185,9 @@ class SimilarityIO:
 
     def __write_html(self, html_data_frame):
         """ Function which is used to report out the top similarity match defaulted to 10 rows """
-        html_file_path = os.path.join(self.__get_file_path(), self.__get_file_name() + "_" + "brief_report.html")
+        html_file_path = os.path.join(self.__get_file_path(), self.__get_file_name() + "_" + "brief_report_" +
+                                      str(datetime.datetime.fromtimestamp(time.time()).strftime(  # pragma: no mutate
+                                          '%H-%M-%S_%d_%m_%Y')) + ".html")
         html_data_frame['UNIQ ID'] = html_data_frame['UNIQ ID'].apply(str).str.wrap(80)
         html_data_frame['POTENTIAL MATCH'] = html_data_frame['POTENTIAL MATCH'].apply(str).str.wrap(80)
         html_data_frame.sort_values('SIMILARITY', ascending=False, inplace=True)
