@@ -2,6 +2,7 @@
 build script to building the similarity tool"""
 import os
 import platform
+import subprocess
 from subprocess_calls import call_subprocess
 from install_dependencies import install_pip
 
