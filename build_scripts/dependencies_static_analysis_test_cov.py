@@ -111,15 +111,24 @@ def test_coverage():
     print("Stage test & coverage -- COMPLETED & PASSED --")
 
 
+def mutation_pass_fail_check():
+    """ Gates mutation test for 20 percentage """
+    call_subprocess("mutmut junitxml --suspicious-policy=ignore --untested-policy=ignore > mutmut.xml")
+    call_subprocess("python3 build_scripts/mutmut_parse.py --m 20")
+    print("Stage mutation testing -- COMPLETED & PASSED  --")
+
+
 def mutation_testing():
     """
-    executes the mutation tests and gates for 20 percentage
+    executes the mutation tests
     """
-    func_exit = "(exit 0)" if os.name == 'nt' else "true"
-    call_subprocess("python -m mutmut run || %s" % func_exit)
-    call_subprocess("mutmut junitxml --suspicious-policy=ignore --untested-policy=ignore > mutmut.xml")
-    call_subprocess("python build_scripts/mutmut_parse.py --m 20")
-    print("Stage mutation testing -- COMPLETED & PASSED  --")
+    working_dir = os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir)))
+    retval = subprocess.call("python -m mutmut run ", shell=True, cwd=working_dir)
+    if retval:
+        if retval & 14:
+            mutation_pass_fail_check()
+    else:
+        mutation_pass_fail_check()
 
 
 if __name__ == "__main__":
