@@ -1,6 +1,7 @@
 """Koninklijke Philips N.V., 2019 - 2020. All rights reserved.
 build script to building the similarity tool"""
 import os
+import sys
 import platform
 import subprocess
 from subprocess_calls import call_subprocess
