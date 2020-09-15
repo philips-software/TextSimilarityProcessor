@@ -127,6 +127,9 @@ def mutation_testing():
     if retval:
         if retval & 14:
             mutation_pass_fail_check()
+        else:
+            print("un expected error occurred while mutation test")
+            sys.exit(1)
     else:
         mutation_pass_fail_check()
 
