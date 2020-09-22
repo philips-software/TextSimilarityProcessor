@@ -15,6 +15,11 @@ class IoTestCase(unittest.TestCase):
     """ This test class verifies the Text similarity to cover
     similarity_io.py and similarity_core.py and similarity_cmd.py """
 
+    @classmethod
+    def tearDown(cls):
+        """"Deletes the files created: merged, recommendation and duplicate."""
+        TestResource.clean_unnecessary_files()
+
     def test_isnan(self):
         """ Function to test isnan """
         self.assertEqual(False, is_nan(345), "Validating isnan function for a float val")

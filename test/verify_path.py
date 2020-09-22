@@ -11,9 +11,9 @@ from test_resource import TestResource # pylint: disable=E0611
 
 def verify_file_path():
     """This function checks the required files are being generated or not"""
-    if (os.path.exists(TestResource.merged_file_path) and
-            os.path.exists(TestResource.recommendation_file_path) and
-            os.path.exists(TestResource.duplicate_id_file_path)):
+    if (os.path.exists(TestResource.get_result_("Testcases_merged_steps_0")) and
+            os.path.exists(TestResource.get_result_("Testcases_recommendation_0")) and
+            os.path.exists(TestResource.get_result_("Testcases_Duplicate_ID_0"))):
         return True
     return False
 
@@ -34,11 +34,11 @@ class FunctionalTestVerification(unittest.TestCase):
                 __data_merged = pd.read_excel(TestResource.golden_merged_file_path)
                 __data_recomend = pd.read_excel(TestResource.golden_recommendation_file_path)
 
-            act_df_recomend = pd.read_excel(TestResource.recommendation_file_path)
-            act_html_report = pd.read_html(TestResource.brief_report_path)
+            act_df_recomend = pd.read_excel(TestResource.get_result_("Testcases_recommendation_0"))
+            act_html_report = pd.read_html(TestResource.get_result_("Testcases_brief_report_"))
             ref_html_report = pd.read_html(TestResource.golden_brief_report_path)
-            act_df_merged = pd.read_excel(TestResource.merged_file_path)
-            act_df_duplicated = pd.read_excel(TestResource.duplicate_id_file_path)
+            act_df_merged = pd.read_excel(TestResource.get_result_("Testcases_merged_steps_0"))
+            act_df_duplicated = pd.read_excel(TestResource.get_result_("Testcases_Duplicate_ID_0"))
             self.assertEqual(act_html_report[0].replace(r'\\r', '', regex=True).values.tolist(),
                              ref_html_report[0].replace(r'\\r', '', regex=True).values.tolist())
             self.assertEqual(True, __data_recomend["SIMILARITY"].equals(act_df_recomend["SIMILARITY"]),

@@ -19,14 +19,7 @@ class SanityTestVerification(unittest.TestCase):
     @classmethod
     def tearDown(cls):
         """"Deletes the files created: merged, recommendation and duplicate."""
-        if os.path.exists(TestResource.recommendation_file_path):
-            os.remove(TestResource.recommendation_file_path)
-        if os.path.exists(TestResource.duplicate_id_file_path):
-            os.remove(TestResource.duplicate_id_file_path)
-        if os.path.exists(TestResource.merged_file_path):
-            os.remove(TestResource.merged_file_path)
-        if os.path.exists(TestResource.brief_report_path):
-            os.remove(TestResource.brief_report_path)
+        TestResource.clean_unnecessary_files()
 
     def test_execute_sanity_suite(self):
         """

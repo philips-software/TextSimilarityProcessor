@@ -1,6 +1,9 @@
 """Koninklijke Philips N.V., 2019 - 2020. All rights reserved.
 build script to building the similarity tool"""
+import os
+import sys
 import platform
+import subprocess
 from subprocess_calls import call_subprocess
 from install_dependencies import install_pip
 
@@ -47,6 +50,7 @@ def check_lint():
     """
     call_subprocess("python -m pylint similarity/ test/ build_scripts/ ")
     print("Stage linting -- COMPLETED & PASSED  --")
+
 
 def check_yml_linting():
     """
@@ -109,14 +113,27 @@ def test_coverage():
     print("Stage test & coverage -- COMPLETED & PASSED --")
 
 
+def mutation_pass_fail_check():
+    """ Gates mutation test for 20 percentage """
+    call_subprocess("mutmut junitxml --suspicious-policy=ignore --untested-policy=ignore > mutmut.xml")
+    call_subprocess("python3 build_scripts/mutmut_parse.py --m 20")
+    print("Stage mutation testing -- COMPLETED & PASSED  --")
+
+
 def mutation_testing():
     """
-    executes the mutation tests and gates for 20 percentage
+    executes the mutation tests
     """
-    call_subprocess("python -m mutmut run > mutmut.log || true")
-    call_subprocess("mutmut junitxml --suspicious-policy=ignore --untested-policy=ignore > mutmut.xml")
-    call_subprocess("python build_scripts/mutmut_parse.py --m 20")
-    print("Stage mutation testing -- COMPLETED & PASSED  --")
+    working_dir = os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir)))
+    retval = subprocess.call("python -m mutmut run ", shell=True, cwd=working_dir)
+    if retval:
+        if retval & 14:
+            mutation_pass_fail_check()
+        else:
+            print("un expected error occurred while mutation test")
+            sys.exit(1)
+    else:
+        mutation_pass_fail_check()
 
 
 if __name__ == "__main__":
