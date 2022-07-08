@@ -150,7 +150,7 @@ class SimilarityIO:
                                      time.time()).strftime(  # pragma: no mutate
                                      '%H-%M-%S_%d_%m_%Y')))
         f = open("%s_percentage.txt"%file_path, "w")
-        f.write("source rows = %s, similarity rows = %s, random percentage = \n"
+        f.write("source rows = %s, similarity rows = %s, random percentage = "
                 "%s"%(str(len(similarity_df.index)), str(len(self.data_frame.index)),
               str(len(similarity_df.index)/len(self.data_frame.index))))
         f.close()
