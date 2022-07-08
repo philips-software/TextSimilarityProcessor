@@ -141,6 +141,21 @@ class SimilarityIO:
         """ Create a copy of the merged content so that user can analyse """
         self.__write_xlsx(self.data_frame, "merged_steps")
 
+    def __compute_write_percentage(self, similarity_df):
+        """ Compute a random percentage of the similarity analysis and write
+        to text file """
+        file_path = os.path.join(self.__get_file_path(),
+                                 self.__get_file_name() + "_" +
+                                 str(datetime.datetime.fromtimestamp(
+                                     time.time()).strftime(  # pragma: no mutate
+                                     '%H-%M-%S_%d_%m_%Y')))
+        f = open("%s_percentage.txt"%file_path, "w")
+        f.write("source rows = %s, similarity rows = %s, random percentage = \n"
+                "%s"%(str(len(similarity_df.index)), str(len(self.data_frame.index)),
+              str(len(similarity_df.index)/len(self.data_frame.index))))
+        f.close()
+
+
     def __write_xlsx(self, data_f, name):
         """ Function which write the dataframe to xlsx """
         data_f.reset_index(inplace=True, drop=True)
@@ -214,6 +229,7 @@ class SimilarityIO:
         """ Function which report the highest similarity match in html and xlsx output based on input argument (
         defaulted to 100 rows #no in html """
         if not brief_report.empty:
+            self.__compute_write_percentage(brief_report)
             html_df = self.data_frame.rename(columns={self.uniq_header: 'UNIQ ID', "Steps": "Steps"})
             html_df['Steps'] = self.set_column_width(html_df[['Steps']])
             temp_data_frame1 = (pd.merge(html_df.drop(['Potential Match'], axis=1), brief_report, on=['UNIQ ID'],
