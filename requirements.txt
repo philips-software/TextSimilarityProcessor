@@ -2,4 +2,4 @@ xlrd==1.2.0
 xlsxwriter==1.2.1
 pandas==1.0.5
 scikit-learn==0.23.1
-numpy==1.18.5
+numpy==1.22.0
