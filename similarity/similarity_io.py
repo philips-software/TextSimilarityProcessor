@@ -132,7 +132,7 @@ class SimilarityIO:
         """ Merge the text so as to form two column one with unique ID , other with merged
         content in steps """
         self.data_frame = (self.data_frame.set_index([self.uniq_header])
-                           .apply(lambda x: " ".join(x.dropna()), axis=1)
+                           .apply(lambda x: " ".join(map(str, x.dropna())), axis=1)
                            .reset_index(name="Steps"))
         self.data_frame = self.data_frame.groupby(self.uniq_header)["Steps"] \
             .apply(' '.join).reset_index()
